@@ -14,12 +14,12 @@ public class TileMap : MonoBehaviour
     Dictionary<Vector2Int, Tile> tiles;
 
     //Base hexagonal
-    readonly Vector2 u = new Vector2(1, 0);
-    readonly Vector2 v = new Vector2(0.5f, Mathf.Sqrt(3) * 0.5f);
+    static readonly Vector2 u = new Vector2(1, 0);
+    static readonly Vector2 v = new Vector2(0.5f, Mathf.Sqrt(3) * 0.5f);
 
     //Base canónica en hexagonal
-    readonly Vector2 x = new Vector2(1, 0);
-    readonly Vector2 y = new Vector2(-Mathf.Sqrt(3)/3, Mathf.Sqrt(3) * 2/3);
+    static readonly Vector2 x = new Vector2(1, 0);
+    static readonly Vector2 y = new Vector2(-Mathf.Sqrt(3)/3, Mathf.Sqrt(3) * 2/3);
 
     //Posicion en el mapa, expuesto para la colocación de la carta
     public static Vector3 mapPosition = Vector3.zero;
@@ -117,25 +117,52 @@ public class TileMap : MonoBehaviour
         SelectedTile = closestTile;
     }
 
+    public void UpdateMap()
+    {
+        ResourceCounterList production = new ResourceCounterList(ResourceCounterType.Production);
+        ResourceCounterList cost = new ResourceCounterList(ResourceCounterType.Cost);
+
+        for (int i = -size; i < 0; i++)
+        {
+            for (int j = -size + Mathf.Abs(i); j <= size; j++)
+            {
+                Tile tile = GetTile(i, j);
+                production += tile.getProduction();
+                cost += tile.getCost();
+            }
+        }
+
+        for (int i = 0; i <= size; i++)
+        {
+            for (int j = -size; j <= size - Mathf.Abs(i); j++)
+            {
+                Tile tile = GetTile(i, j);
+                production += tile.getProduction();
+                cost += tile.getCost();
+            }
+        }
+
+        ResourceManager.Instance.updateResourceCounters(production, cost);
+    }
 
     /* TRANSFORMACIONES de la base hexagonal a la canónica y viceversa, con Vector2 y con coordenadas sueltas */
 
-    Vector2 uvToWorldSpace(float uCoord, float vCoord)
+    public static Vector2 uvToWorldSpace(float uCoord, float vCoord)
     {
         return uCoord * u + vCoord * v;
     }
 
-    Vector2 uvToWorldSpace(Vector2 uvCoords)
+    public static Vector2 uvToWorldSpace(Vector2 uvCoords)
     {
         return uvToWorldSpace(uvCoords.x, uvCoords.y);
     }
 
-    Vector2 worldSpaceToUv(float xCoord, float yCoord)
+    public static Vector2 worldSpaceToUv(float xCoord, float yCoord)
     {
         return xCoord * x + yCoord * y;
     }
 
-    Vector2 worldSpaceToUv(Vector2 xyCoords)
+    public static Vector2 worldSpaceToUv(Vector2 xyCoords)
     {
         return worldSpaceToUv(xyCoords.x, xyCoords.y);
     }

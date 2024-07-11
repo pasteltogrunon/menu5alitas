@@ -27,4 +27,20 @@ public class Tile : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().color = Color.white;
     }
+
+    public ResourceCounterList getProduction()
+    {
+        if (building == null)
+            return new ResourceCounterList(ResourceCounterType.Production);
+        
+        return building.getProduction();
+    }
+
+    public ResourceCounterList getCost()
+    {
+        if (building == null)
+            return new ResourceCounterList(ResourceCounterType.Cost);
+
+        return building.getCost();
+    }
 }
