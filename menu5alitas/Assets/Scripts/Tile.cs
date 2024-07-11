@@ -6,6 +6,8 @@ public class Tile : MonoBehaviour
 {
     public Vector2Int uvCoords;
 
+    public Building building;
+
     //Se guardan sus coordenadas y se le cambia el nombre
     public void Initialize(int uCoord, int vCoord)
     {

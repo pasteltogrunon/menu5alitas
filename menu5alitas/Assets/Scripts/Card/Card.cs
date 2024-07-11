@@ -4,14 +4,14 @@ using UnityEngine;
 
 public abstract class Card : MonoBehaviour
 {
-    public int metalCost;
+    public ResourceCounterList cost = new ResourceCounterList(ResourceCounterType.Cost);
     public Sprite sprite;
 
     bool isDragged = false;
 
     Vector3 originPosition;
 
-    public abstract void Play(Tile tile);
+    public abstract void tryPlayCard(Tile tile);
 
     //Se utiliza el update si está siendo drageado
     private void Update()
@@ -49,7 +49,7 @@ public abstract class Card : MonoBehaviour
 
         if(TileMap.Instance.SelectedTile != null)
         {
-            Play(TileMap.Instance.SelectedTile);
+            tryPlayCard(TileMap.Instance.SelectedTile);
         }
         else
         {

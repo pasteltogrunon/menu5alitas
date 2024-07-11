@@ -152,8 +152,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 25, y: 25, z: 25}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1243765122}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -351,6 +351,101 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &798424699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 798424701}
+  - component: {fileID: 798424700}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &798424700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798424699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8b6d584e1886f4686bf284646ec4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storagedResources:
+    metalResourceCounter:
+      resource: 0
+      amount: 0
+      counterType: 2
+    waterResourceCounter:
+      resource: 1
+      amount: 0
+      counterType: 2
+    workerResourceCounter:
+      resource: 2
+      amount: 0
+      counterType: 2
+    scienceResourceCounter:
+      resource: 3
+      amount: 0
+      counterType: 2
+  resourceProductionPerTurn:
+    metalResourceCounter:
+      resource: 0
+      amount: 0
+      counterType: 3
+    waterResourceCounter:
+      resource: 1
+      amount: 0
+      counterType: 3
+    workerResourceCounter:
+      resource: 2
+      amount: 0
+      counterType: 3
+    scienceResourceCounter:
+      resource: 3
+      amount: 0
+      counterType: 3
+  resourceCostPerEvent:
+    metalResourceCounter:
+      resource: 0
+      amount: 0
+      counterType: 3
+    waterResourceCounter:
+      resource: 1
+      amount: 0
+      counterType: 3
+    workerResourceCounter:
+      resource: 2
+      amount: 0
+      counterType: 3
+    scienceResourceCounter:
+      resource: 3
+      amount: 0
+      counterType: 3
+--- !u!4 &798424701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798424699}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.0239532, y: -8.272865, z: -13.006041}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1243765121
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,3 +689,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1297954546}
   - {fileID: 1243765122}
+  - {fileID: 798424701}
