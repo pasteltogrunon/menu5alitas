@@ -27,6 +27,12 @@ public class ResourceManager : MonoBehaviour
         
     }
 
+    public void updateResourceCounters(ResourceCounterList production, ResourceCounterList cost)
+    {
+        resourceProductionPerTurn = production;
+        resourceCostPerEvent = cost;
+    }
+
     //Ajusta la cantidad segun si es coste o produccion, dependerá de los eventos
     public int adjustedAmount(ResourceCounter resourceCounter)
     {

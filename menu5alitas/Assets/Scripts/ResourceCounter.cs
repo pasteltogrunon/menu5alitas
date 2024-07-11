@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 //Esta clase es un contador de recursos individual
 [System.Serializable]
@@ -63,6 +64,30 @@ public class ResourceCounterList
     public void SetAmount(ResourceType resource, int amount)
     {
         resourcesDictionary[resource].amount = amount;
+    }
+
+    public ResourceCounterList copy()
+    {
+        ResourceCounterList copy = new ResourceCounterList(ResourceCounterType.Production);
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            copy.SetAmount(resource, amount(resource));
+        }
+        return copy;
+    }
+
+    public static ResourceCounterList operator +(ResourceCounterList a, ResourceCounterList b)
+    {
+        if (a.metalResourceCounter.counterType != b.metalResourceCounter.counterType)
+            Debug.LogWarning("Resource counters added with different counter types: " + a.metalResourceCounter.counterType + ", " + b.metalResourceCounter.counterType);
+
+        ResourceCounterList sum = new ResourceCounterList(a.metalResourceCounter.counterType);
+
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            sum.SetAmount(resource, a.amount(resource) + b.amount(resource));
+        }
+        return sum;
     }
 }
 
