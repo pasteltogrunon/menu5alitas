@@ -509,7 +509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 10
-  TilePrefab: {fileID: 5354019219481756424, guid: f9fa4c359522fc9409cbf7bd4c209a53, type: 3}
+  tilePrefab: {fileID: 5354019219481756424, guid: f9fa4c359522fc9409cbf7bd4c209a53, type: 3}
   planeLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -680,8 +680,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -2.7700005, z: 6.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 54519023}
+  m_Children: []
   m_Father: {fileID: 1297954546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1376249089
@@ -696,6 +695,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18781bece732adf4884b46ef2d33fab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartingCardsAmount: 5
+  CardPrefab: {fileID: 7964144986810320908, guid: 498fb23b57f34414fadd4e12a8b3f618, type: 3}
   Hand: []
   cardLayer:
     serializedVersion: 2

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public abstract class Card : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public abstract class Card : MonoBehaviour
 
     Vector3 originPosition;
 
-    public abstract void tryPlayCard(Tile tile);
+    public abstract bool tryPlayCard(Tile tile);
 
     //Se utiliza el update si está siendo drageado
     private void Update()
@@ -53,7 +54,16 @@ public abstract class Card : MonoBehaviour
         }
         else
         {
-            transform.position = originPosition;
+            Debug.Log(transform);
+            if (transform)
+                transform.position = originPosition;
         }
     }
+
+    protected void DeleteFromHandManager()
+    {
+        var handManagerParent = transform.parent.GetComponent<HandManager>();
+        handManagerParent.DeleteCard(this);
+    }
 }
+

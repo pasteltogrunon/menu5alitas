@@ -7,7 +7,7 @@ public class TileMap : MonoBehaviour
     public static TileMap Instance;
 
     [SerializeField] int size = 10;
-    [SerializeField] GameObject TilePrefab;
+    [SerializeField] GameObject tilePrefab;
     [SerializeField] LayerMask planeLayer;
 
     //Diccionario de las coordenadas con el Tile, para que el 0, 0 pueda ser el centro
@@ -104,7 +104,7 @@ public class TileMap : MonoBehaviour
     //Crea el Tile y se hacen las gestiones necesarias, como ponerlo en el diccionario e inicializarlo
     void CreateTile(int uCoord, int vCoord)
     {
-        tiles.Add(new Vector2Int(uCoord, vCoord), Instantiate(TilePrefab, uvToWorldSpace(uCoord, vCoord), Quaternion.identity, tr).GetComponent<Tile>());
+        tiles.Add(new Vector2Int(uCoord, vCoord), Instantiate(tilePrefab, uvToWorldSpace(uCoord, vCoord), Quaternion.identity, tr).GetComponent<Tile>());
         tiles[new Vector2Int(uCoord, vCoord)].Initialize(uCoord, vCoord);
     }
 
