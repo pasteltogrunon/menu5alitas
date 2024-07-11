@@ -5,9 +5,11 @@ using UnityEngine;
 public class BuildingCard : Card
 {
     //De momento poco, para el testeo
-    public override void tryPlayCard(Tile tile)
+    public override bool tryPlayCard(Tile tile)
     {
         tile.GetComponent<SpriteRenderer>().sprite = sprite;
         Destroy(gameObject);
+        DeleteFromHandManager();
+        return true;
     }
 }
