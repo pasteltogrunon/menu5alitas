@@ -27,5 +27,6 @@ public class GameManager : MonoBehaviour
     {
         turn++;
         handManager.StealCard();
+        ResourceManager.Instance.NextTurn();
     }
 }

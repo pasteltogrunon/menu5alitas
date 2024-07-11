@@ -50,11 +50,14 @@ public abstract class Card : MonoBehaviour
 
         if(TileMap.Instance.SelectedTile != null)
         {
-            tryPlayCard(TileMap.Instance.SelectedTile);
+            if(!tryPlayCard(TileMap.Instance.SelectedTile))
+            {
+                if (transform)
+                    transform.position = originPosition;
+            }
         }
         else
         {
-            Debug.Log(transform);
             if (transform)
                 transform.position = originPosition;
         }

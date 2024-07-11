@@ -7,6 +7,7 @@ public class TileMap : MonoBehaviour
     public static TileMap Instance;
 
     [SerializeField] int size = 10;
+    [SerializeField] int initialRadius = 2;
     [SerializeField] GameObject tilePrefab;
     [SerializeField] LayerMask planeLayer;
 
@@ -53,6 +54,8 @@ public class TileMap : MonoBehaviour
         tr = transform;
 
         GenerateMap();
+
+        UnlockInitialTiles();
     }
 
     void Update()
@@ -99,6 +102,7 @@ public class TileMap : MonoBehaviour
                 CreateTile(i, j);
             }
         }
+        
     }
 
     //Crea el Tile y se hacen las gestiones necesarias, como ponerlo en el diccionario e inicializarlo
@@ -106,6 +110,29 @@ public class TileMap : MonoBehaviour
     {
         tiles.Add(new Vector2Int(uCoord, vCoord), Instantiate(tilePrefab, uvToWorldSpace(uCoord, vCoord), Quaternion.identity, tr).GetComponent<Tile>());
         tiles[new Vector2Int(uCoord, vCoord)].Initialize(uCoord, vCoord);
+    }
+
+    void UnlockInitialTiles()
+    {
+        for (int i = -initialRadius; i < 0; i++)
+        {
+            for (int j = -initialRadius + Mathf.Abs(i); j <= initialRadius; j++)
+            {
+                Tile neighbor = GetTile(i, j);
+                if (neighbor)
+                    neighbor.Unlocked = true;
+            }
+        }
+
+        for (int i = 0; i <= initialRadius; i++)
+        {
+            for (int j = -initialRadius; j <= initialRadius - Mathf.Abs(i); j++)
+            {
+                Tile neighbor = GetTile(i, j);
+                if (neighbor)
+                    neighbor.Unlocked = true;
+            }
+        }
     }
 
     //Chequea en que punto del mapa hace contacto el mouse (lanzando un raycast)

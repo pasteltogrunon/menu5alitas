@@ -7,11 +7,28 @@ public class Building : MonoBehaviour
     [SerializeField] ResourceCounterList productionPerTurn = new ResourceCounterList(ResourceCounterType.Production);
     [SerializeField] ResourceCounterList costPerEvent = new ResourceCounterList(ResourceCounterType.Cost);
 
+    public string id;
+    public int tier;
+
     public ResourceCounterList getProduction()
     {
-        ResourceCounterList production = productionPerTurn.copy();
+        return productionPerTurn * getEneryFactor() * getHappinessFactor();
+    }
 
-        return production;
+    float getEneryFactor()
+    {
+        if(transform.parent)
+        {
+            float energyLevel = transform.parent.GetComponent<Tile>().energyLevel;
+
+            return energyLevel / tier;
+        }
+        return 1;
+    }
+
+    float getHappinessFactor()
+    {
+        return 1;
     }
 
     public ResourceCounterList getCost()
@@ -19,5 +36,10 @@ public class Building : MonoBehaviour
         ResourceCounterList cost = costPerEvent.copy();
 
         return cost;
+    }
+
+    public virtual void onPlace(Tile tile)
+    {
+
     }
 }

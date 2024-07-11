@@ -33,6 +33,26 @@ public class ResourceManager : MonoBehaviour
         resourceCostPerEvent = cost;
     }
 
+    public void NextTurn()
+    {
+        storagedResources += resourceProductionPerTurn;
+    }
+
+    public bool canAfford(ResourceCounterList cost)
+    {
+        return storagedResources >= cost;
+    }
+
+    public bool subtractResources(ResourceCounterList cost)
+    {
+        if(storagedResources >= cost)
+        {
+            storagedResources -= cost;
+            return true;
+        }
+        return false;
+    }
+
     //Ajusta la cantidad segun si es coste o produccion, dependerá de los eventos
     public int adjustedAmount(ResourceCounter resourceCounter)
     {

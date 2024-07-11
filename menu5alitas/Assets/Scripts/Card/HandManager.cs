@@ -7,7 +7,7 @@ public class HandManager : MonoBehaviour
     public static HandManager Instance;
 
     [SerializeField] uint StartingCardsAmount = 5;
-    [SerializeField] GameObject CardPrefab;
+    [SerializeField] GameObject[] CardPrefabs;
 
     public List<Card> Hand = new List<Card>();
 
@@ -87,7 +87,7 @@ public class HandManager : MonoBehaviour
     {
         //TODO: La carta tiene que ser sacada del mazo (aleatoriamente?)
         var cardInHandOffset = 1.25f;
-        var gameObject = Instantiate(CardPrefab, transform.position + Vector3.left * Hand.Count * cardInHandOffset, Quaternion.identity, transform);
+        var gameObject = Instantiate(CardPrefabs[Random.Range(0, CardPrefabs.Length)], transform.position + Vector3.left * Hand.Count * cardInHandOffset, Quaternion.identity, transform);
         Hand.Add(gameObject.GetComponent<Card>());
     }
 

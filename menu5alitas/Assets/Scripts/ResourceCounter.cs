@@ -68,7 +68,7 @@ public class ResourceCounterList
 
     public ResourceCounterList copy()
     {
-        ResourceCounterList copy = new ResourceCounterList(ResourceCounterType.Production);
+        ResourceCounterList copy = new ResourceCounterList(metalResourceCounter.counterType);
         foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
         {
             copy.SetAmount(resource, amount(resource));
@@ -76,11 +76,9 @@ public class ResourceCounterList
         return copy;
     }
 
+    #region Operadores
     public static ResourceCounterList operator +(ResourceCounterList a, ResourceCounterList b)
     {
-        if (a.metalResourceCounter.counterType != b.metalResourceCounter.counterType)
-            Debug.LogWarning("Resource counters added with different counter types: " + a.metalResourceCounter.counterType + ", " + b.metalResourceCounter.counterType);
-
         ResourceCounterList sum = new ResourceCounterList(a.metalResourceCounter.counterType);
 
         foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
@@ -89,6 +87,85 @@ public class ResourceCounterList
         }
         return sum;
     }
+
+    public static ResourceCounterList operator -(ResourceCounterList a, ResourceCounterList b)
+    {
+        ResourceCounterList sum = new ResourceCounterList(a.metalResourceCounter.counterType);
+
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            sum.SetAmount(resource, a.amount(resource) - b.amount(resource));
+        }
+        return sum;
+    }
+
+    public static ResourceCounterList operator *(ResourceCounterList a, float b)
+    {
+        ResourceCounterList result = new ResourceCounterList(a.metalResourceCounter.counterType);
+
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            result.SetAmount(resource, Mathf.CeilToInt(a.amount(resource) * b));
+        }
+        return result;
+    }
+
+    public static bool operator >(ResourceCounterList a, ResourceCounterList b)
+    {
+        bool flag = true;
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            if (a.amount(resource) <= b.amount(resource))
+            {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    public static bool operator <(ResourceCounterList a, ResourceCounterList b)
+    {
+        bool flag = true;
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            if (a.amount(resource) >= b.amount(resource))
+            {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    public static bool operator >=(ResourceCounterList a, ResourceCounterList b)
+    {
+        bool flag = true;
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            if (a.amount(resource) < b.amount(resource))
+            {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    public static bool operator <=(ResourceCounterList a, ResourceCounterList b)
+    {
+        bool flag = true;
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            if (a.amount(resource) > b.amount(resource))
+            {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+    #endregion
 }
 
 public enum ResourceCounterType
