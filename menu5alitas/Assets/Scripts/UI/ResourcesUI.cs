@@ -18,10 +18,10 @@ public class ResourcesUI : MonoBehaviour
 
     public void UpdateUI(ResourceCounterList resourcesStorage, float happiness)
     {
-        storageText.text = "Metal: " + resourcesStorage.AdjustedAmount(ResourceType.Metal) +
-            "\nWater: " + resourcesStorage.AdjustedAmount(ResourceType.Water) +
-            "\nWorker: " + resourcesStorage.AdjustedAmount(ResourceType.Worker) +
-            "\nScience: " + resourcesStorage.AdjustedAmount(ResourceType.Science);
+        storageText.text = "Metal: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Metal) +
+            "\nWater: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Water) +
+            "\nWorker: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Worker) +
+            "\nScience: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Science);
         happinessBar.fillAmount = happiness / 100;
     }
 }

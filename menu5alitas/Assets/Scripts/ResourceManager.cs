@@ -43,8 +43,8 @@ public class ResourceManager : MonoBehaviour
 
     public void updateResourceCounters(ResourceCounterList production, ResourceCounterList cost)
     {
-        resourceProductionPerTurn = production.Adjust();
-        resourceCostPerEvent = cost.Adjust();
+        resourceProductionPerTurn = production.AdjustAllResources();
+        resourceCostPerEvent = cost.AdjustAllResources();
 
         updateUI();
     }
@@ -77,7 +77,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     //Ajusta la cantidad segun si es coste o produccion, dependerá de los eventos
-    public int adjustedAmount(ResourceCounter resourceCounter)
+    public int ResourceAmountAdjustedFromBuffs(ResourceCounter resourceCounter)
     {
         switch(resourceCounter.counterType)
         {

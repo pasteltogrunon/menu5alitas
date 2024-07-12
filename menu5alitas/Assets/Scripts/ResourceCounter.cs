@@ -19,11 +19,10 @@ public class ResourceCounter
         this.counterType = counterType;
     }
 
-    public int AdjustedAmount()
+    public int AdjustedResourceAmount()
     {
-        return ResourceManager.Instance.adjustedAmount(this);
+        return ResourceManager.Instance.ResourceAmountAdjustedFromBuffs(this);
     }
-
 
 }
 
@@ -51,18 +50,18 @@ public class ResourceCounterList
         resourcesDictionary.Add(ResourceType.Science, scienceResourceCounter);
     }
 
-    public int AdjustedAmount(ResourceType resource)
+    public int AdjustedAmountOfResource(ResourceType resource)
     {
-        return resourcesDictionary[resource].AdjustedAmount();
+        return resourcesDictionary[resource].AdjustedResourceAmount();
     }
 
-    public ResourceCounterList Adjust()
+    public ResourceCounterList AdjustAllResources()
     {
         ResourceCounterList adjustedList = new ResourceCounterList(ResourceCounterType.AlreadyAdjusted);
 
         foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
         {
-            adjustedList.SetAmount(resource, AdjustedAmount(resource));
+            adjustedList.SetAmount(resource, AdjustedAmountOfResource(resource));
         }
 
         return adjustedList;

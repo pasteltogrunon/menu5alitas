@@ -29,4 +29,18 @@ public class Deck : ScriptableObject
 
         return id;
     }
+
+    public void AddCard(string id)
+    {
+        cardIds.Add(id);
+        remainingCardIds.Add(id);
+    }
+
+    public void RemoveCard(string id)
+    {
+        if (cardIds.Contains(id))
+            cardIds.Remove(id);
+        if (remainingCardIds.Contains(id))
+            remainingCardIds.Remove(id);
+    }
 }
