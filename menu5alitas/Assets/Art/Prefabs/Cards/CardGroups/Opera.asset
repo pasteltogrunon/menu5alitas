@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c21024ddb4686648a71777222021d2a, type: 3}
+  m_Name: Opera
+  m_EditorClassIdentifier: 
+  Id: opera
+  HasTier: 1
+  Cards:
+  - {fileID: 7964144986810320908, guid: cb8a670bd25159e41898b23f6c70f505, type: 3}
+  - {fileID: 7964144986810320908, guid: 216cfaf28d6d8564292028fde869f0f0, type: 3}
+  - {fileID: 7964144986810320908, guid: e53ae907469a813469fde6463ae11cdf, type: 3}

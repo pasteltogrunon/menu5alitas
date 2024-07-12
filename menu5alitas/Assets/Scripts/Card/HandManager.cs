@@ -7,9 +7,12 @@ public class HandManager : MonoBehaviour
     public static HandManager Instance;
 
     [SerializeField] uint StartingCardsAmount = 5;
-    [SerializeField] GameObject[] CardPrefabs;
 
     public List<Card> Hand = new List<Card>();
+    public int CurrentTier = 1;
+
+    [SerializeField] Deck deck;
+    [SerializeField] Collection cardCollection;
 
     //Carta hovereada con su getter y setter
     private Card _hoveredCard;
@@ -28,6 +31,7 @@ public class HandManager : MonoBehaviour
     }
 
     [SerializeField] LayerMask cardLayer;
+
 
     private void Awake()
     {
@@ -87,7 +91,10 @@ public class HandManager : MonoBehaviour
     {
         //TODO: La carta tiene que ser sacada del mazo (aleatoriamente?)
         var cardInHandOffset = 1.25f;
-        var gameObject = Instantiate(CardPrefabs[Random.Range(0, CardPrefabs.Length)], transform.position + Vector3.left * (Hand.Count - 3) * cardInHandOffset, Quaternion.identity, transform);
+        string id = deck.takeRandomCard();
+        GameObject cardPrefab = cardCollection.GetCardPrefab(id, CurrentTier);
+        Debug.Log(id);
+        var gameObject = Instantiate(cardPrefab, transform.position + Vector3.left * (Hand.Count - 3) * cardInHandOffset, Quaternion.identity, transform);
         Hand.Add(gameObject.GetComponent<Card>());
     }
 

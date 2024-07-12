@@ -1069,27 +1069,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartingCardsAmount: 5
-  CardPrefabs:
-  - {fileID: 7964144986810320908, guid: c545f3e394926514fa5da512a5260dbd, type: 3}
-  - {fileID: 7964144986810320908, guid: a5a0138c18f1dee4db0029f37919a5a6, type: 3}
-  - {fileID: 7964144986810320908, guid: 8657ab1c248d29249a05276547370e00, type: 3}
-  - {fileID: 7964144986810320908, guid: 9168f145735ac4b45990399d2db780fc, type: 3}
-  - {fileID: 7964144986810320908, guid: 132054591695bed4d9490ea1dafd3006, type: 3}
-  - {fileID: 7964144986810320908, guid: 5767825942a9a2a4d840cc090187a994, type: 3}
-  - {fileID: 7964144986810320908, guid: a67f87ba942916148b8e951d57eacd5d, type: 3}
-  - {fileID: 7964144986810320908, guid: eb34274ca09ea594daf4b53e7a9be616, type: 3}
-  - {fileID: 7964144986810320908, guid: e496ce3944b408e4c9d7ec9fd3eef9ba, type: 3}
-  - {fileID: 7964144986810320908, guid: ff91eaa50c733b74ca1074480545e58a, type: 3}
-  - {fileID: 7964144986810320908, guid: 5db49984d1c47a347a37658cd940348a, type: 3}
-  - {fileID: 7964144986810320908, guid: 9c753a9dc14d23d4ea06c963d3c1767d, type: 3}
-  - {fileID: 7964144986810320908, guid: 36c9fc12b9c911f4e91a8bf91e28a6fd, type: 3}
-  - {fileID: 7964144986810320908, guid: 698c83da92cb2ea4c82e0e2ddea9444f, type: 3}
-  - {fileID: 7964144986810320908, guid: 8a142f3732a6a49489b4ca36558c7f99, type: 3}
-  - {fileID: 7964144986810320908, guid: 3179e7b96c0fa64429ac45c91e66a908, type: 3}
-  - {fileID: 7964144986810320908, guid: cb8a670bd25159e41898b23f6c70f505, type: 3}
-  - {fileID: 7964144986810320908, guid: 216cfaf28d6d8564292028fde869f0f0, type: 3}
-  - {fileID: 7964144986810320908, guid: e53ae907469a813469fde6463ae11cdf, type: 3}
   Hand: []
+  CurrentTier: 1
+  deck: {fileID: 11400000, guid: cdd2a6704432e5c498b46d9fed64c630, type: 2}
+  cardCollection: {fileID: 11400000, guid: a72ebec369c704641801782b1eeb6c3b, type: 2}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1357,7 +1340,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1441,10 +1424,10 @@ RectTransform:
   - {fileID: 136572203}
   m_Father: {fileID: 1598422806}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 430}
+  m_SizeDelta: {x: 150, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1999529475
 MonoBehaviour:

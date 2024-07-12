@@ -56,6 +56,18 @@ public class ResourceCounterList
         return resourcesDictionary[resource].AdjustedAmount();
     }
 
+    public ResourceCounterList Adjust()
+    {
+        ResourceCounterList adjustedList = new ResourceCounterList(ResourceCounterType.AlreadyAdjusted);
+
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            adjustedList.SetAmount(resource, AdjustedAmount(resource));
+        }
+
+        return adjustedList;
+    }
+
     public int amount(ResourceType resource)
     {
         return resourcesDictionary[resource].amount;
