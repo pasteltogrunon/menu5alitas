@@ -9,21 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7730391a7dd0e634d88fcaf6051601eb, type: 3}
-  m_Name: BasicOneOfEachDeck
+  m_Script: {fileID: 11500000, guid: 6c21024ddb4686648a71777222021d2a, type: 3}
+  m_Name: Tier3
   m_EditorClassIdentifier: 
-  cardIds:
-  - factory
-  - generator
-  - house
-  - water
-  - science
-  - opera
-  - telecom
-  remainingCardIds:
-  - factory
-  - generator
-  - house
-  - water
-  - science
-  - opera
+  Id: tier3
+  HasTier: 0
+  Cards:
+  - {fileID: 7964144986810320908, guid: 9d6d5c66d50034c4d9f69c40cd0bfb24, type: 3}

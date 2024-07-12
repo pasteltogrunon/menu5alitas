@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
     private void NextTurn()
     {
+        if (HandManager.Instance.isChoosingCard) return;
+
         turn++;
         handManager.StealCard();
         ResourceManager.Instance.NextTurn();

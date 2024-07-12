@@ -12,7 +12,7 @@ public class BuildingCard : Card
         float canPlaceFactor = tile.canPlace(buildingPrefab.GetComponent<Building>());
         if(canPlaceFactor != 0)
         {
-            if(ResourceManager.Instance.subtractResources(cost * canPlaceFactor))
+            if(ResourceManager.Instance.subtractResources(cost.AdjustAllResources() * canPlaceFactor))
             {
                 if(canPlaceFactor != 1)
                 {

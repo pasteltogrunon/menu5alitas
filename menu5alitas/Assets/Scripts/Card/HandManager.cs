@@ -14,7 +14,7 @@ public class HandManager : MonoBehaviour
     [SerializeField] Deck deck;
     [SerializeField] Collection cardCollection;
 
-    private bool isChoosingCard = false;
+    public bool isChoosingCard = false;
     private struct ChoosingCards
     {
         public GameObject CardLeft { get; set; }
@@ -84,6 +84,7 @@ public class HandManager : MonoBehaviour
                     if (newPositon != Vector3.zero)
                     {
                         HoveredCard.Select(newPositon);
+                        HoveredCard?.startDrag();
                     }
                 }
                 else
@@ -190,5 +191,15 @@ public class HandManager : MonoBehaviour
             handCard.transform.position = transform.position + Vector3.left * c * cardInHandOffset;
             c++;
         }
+    }
+
+    public void RemoveCardFromDeck(string id)
+    {
+        deck.RemoveCard(id);
+    }
+
+    public void AddCardToDeck(string id)
+    {
+        deck.AddCard(id);
     }
 }
