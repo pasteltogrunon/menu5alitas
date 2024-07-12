@@ -81,7 +81,10 @@ public class HandManager : MonoBehaviour
                 if (isChoosingCard)
                 {
                     var newPositon = ChooseCard(HoveredCard);
-                    HoveredCard?.Select(newPositon);
+                    if (newPositon != Vector3.zero)
+                    {
+                        HoveredCard.Select(newPositon);
+                    }
                 }
                 else
                 {
@@ -112,39 +115,39 @@ public class HandManager : MonoBehaviour
         {
             return Vector3.zero;
         }
+
         GameObject chosenCardPrefab = null;
-        if (choosingCards.CardLeft != null && choosingCards.CardLeft.GetComponent<Card>() != card)
+        bool isLeft = choosingCards.CardLeft != null && choosingCards.CardLeft.GetComponent<Card>() == card;
+        bool isCenter = choosingCards.CardCenter != null && choosingCards.CardCenter.GetComponent<Card>() == card;
+        bool isRight = choosingCards.CardRight != null && choosingCards.CardRight.GetComponent<Card>() == card;
+
+        if (isLeft)
         {
-            Debug.Log("Destroyed Left Choosing Card");
+            chosenCardPrefab = choosingCards.CardLeft;
+            Destroy(choosingCards.CardCenter);
+            Destroy(choosingCards.CardRight);
+        }
+        else if(isCenter)
+        {
+            chosenCardPrefab = choosingCards.CardCenter;
+            Destroy(choosingCards.CardLeft);
+            Destroy(choosingCards.CardRight);
+        }else if (isRight)
+        {
+            chosenCardPrefab = choosingCards.CardRight;
+            Destroy(choosingCards.CardCenter);
             Destroy(choosingCards.CardLeft);
         }
         else
         {
-            chosenCardPrefab = choosingCards.CardLeft;
+            return Vector3.zero;
         }
 
-        if (choosingCards.CardCenter != null && choosingCards.CardCenter.GetComponent<Card>() != card)
+        if (chosenCardPrefab == null)//redundant
         {
-            Debug.Log("Destroyed Center Choosing Card");
-            Destroy(choosingCards.CardCenter);
-        }
-        else
-        {
-            chosenCardPrefab = choosingCards.CardCenter;
+            return Vector3.zero;
         }
 
-        if (choosingCards.CardRight != null && choosingCards.CardRight.GetComponent<Card>() != card)
-        {
-            Debug.Log("Destroyed Right Choosing Card");
-            Destroy(choosingCards.CardRight);
-        }
-        else
-        {
-            chosenCardPrefab = choosingCards.CardRight;
-        }
-
-        //Debug.Log($"Hand Manager position: {transform.position}");
-        //Debug.Log($"Parent position: {transform.position}");
         var newPosition = transform.position + Vector3.left * (Hand.Count - 3) * 1.25f;
 
         chosenCardPrefab.transform.position = newPosition; //Estaria guay animarlo
