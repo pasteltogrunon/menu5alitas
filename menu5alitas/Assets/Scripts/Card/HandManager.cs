@@ -87,7 +87,7 @@ public class HandManager : MonoBehaviour
     {
         //TODO: La carta tiene que ser sacada del mazo (aleatoriamente?)
         var cardInHandOffset = 1.25f;
-        var gameObject = Instantiate(CardPrefabs[Random.Range(0, CardPrefabs.Length)], transform.position + Vector3.left * Hand.Count * cardInHandOffset, Quaternion.identity, transform);
+        var gameObject = Instantiate(CardPrefabs[Random.Range(0, CardPrefabs.Length)], transform.position + Vector3.left * (Hand.Count - 3) * cardInHandOffset, Quaternion.identity, transform);
         Hand.Add(gameObject.GetComponent<Card>());
     }
 
@@ -95,7 +95,7 @@ public class HandManager : MonoBehaviour
     {
         Hand.Remove(card);
         var cardInHandOffset = 1.25f;
-        var c = 0;
+        var c = -3;
         foreach (Card handCard in Hand) {
             handCard.transform.position = transform.position + Vector3.left * c * cardInHandOffset;
             c++;

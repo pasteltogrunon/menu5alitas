@@ -10,6 +10,10 @@ public class Building : MonoBehaviour
     public string id;
     public int tier;
 
+    public int happinessPerTurn;
+
+    public bool requiresEnergy;
+
     public ResourceCounterList getProduction()
     {
         return productionPerTurn * getEneryFactor() * getHappinessFactor();
@@ -17,7 +21,8 @@ public class Building : MonoBehaviour
 
     float getEneryFactor()
     {
-        if(transform.parent)
+        //If placed and requires energy
+        if(transform.parent && requiresEnergy)
         {
             float energyLevel = transform.parent.GetComponent<Tile>().energyLevel;
 
@@ -28,6 +33,10 @@ public class Building : MonoBehaviour
 
     float getHappinessFactor()
     {
+        if (transform.parent)
+        {
+            return (float)ResourceManager.Instance.Happiness / 100;
+        }
         return 1;
     }
 

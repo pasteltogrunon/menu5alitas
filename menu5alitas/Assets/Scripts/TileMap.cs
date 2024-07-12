@@ -149,6 +149,8 @@ public class TileMap : MonoBehaviour
         ResourceCounterList production = new ResourceCounterList(ResourceCounterType.Production);
         ResourceCounterList cost = new ResourceCounterList(ResourceCounterType.Cost);
 
+        int happinessProduction = 0;
+
         for (int i = -size; i < 0; i++)
         {
             for (int j = -size + Mathf.Abs(i); j <= size; j++)
@@ -156,6 +158,7 @@ public class TileMap : MonoBehaviour
                 Tile tile = GetTile(i, j);
                 production += tile.getProduction();
                 cost += tile.getCost();
+                happinessProduction += tile.getHappinessProduction();
             }
         }
 
@@ -166,10 +169,13 @@ public class TileMap : MonoBehaviour
                 Tile tile = GetTile(i, j);
                 production += tile.getProduction();
                 cost += tile.getCost();
+                happinessProduction += tile.getHappinessProduction();
             }
         }
 
         ResourceManager.Instance.updateResourceCounters(production, cost);
+
+        ResourceManager.Instance.HappinessPerTurn = happinessProduction;
     }
 
     /* TRANSFORMACIONES de la base hexagonal a la canónica y viceversa, con Vector2 y con coordenadas sueltas */

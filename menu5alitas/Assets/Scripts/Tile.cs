@@ -94,4 +94,12 @@ public class Tile : MonoBehaviour
 
         return building.getCost();
     }
+
+    public int getHappinessProduction()
+    {
+        if (building == null)
+            return 0;
+
+        return building.happinessPerTurn;
+    }
 }

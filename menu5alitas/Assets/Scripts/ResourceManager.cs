@@ -12,6 +12,20 @@ public class ResourceManager : MonoBehaviour
     public ResourceCounterList resourceProductionPerTurn = new ResourceCounterList(ResourceCounterType.AlreadyAdjusted);
     public ResourceCounterList resourceCostPerEvent = new ResourceCounterList(ResourceCounterType.AlreadyAdjusted);
 
+    public int HappinessPerTurn = 0;
+
+    private int _happiness;
+    public int Happiness
+    {
+        get => _happiness;
+        set
+        {
+            //Preparado para cambiar la UI cuando haga falta
+            _happiness = value;
+            updateUI();
+        }
+    }
+
     private void Awake()
     {
         Instance = this;
@@ -19,7 +33,7 @@ public class ResourceManager : MonoBehaviour
 
     void Start()
     {
-        
+        Happiness = 50;
     }
 
     void Update()
@@ -31,11 +45,15 @@ public class ResourceManager : MonoBehaviour
     {
         resourceProductionPerTurn = production;
         resourceCostPerEvent = cost;
+
+        updateUI();
     }
 
     public void NextTurn()
     {
         storagedResources += resourceProductionPerTurn;
+
+        Happiness = Mathf.Clamp(Happiness + HappinessPerTurn, 0, 100);
     }
 
     public bool canAfford(ResourceCounterList cost)
@@ -51,6 +69,11 @@ public class ResourceManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    void updateUI()
+    {
+        ResourcesUI.Instance.UpdateUI(storagedResources, Happiness);
     }
 
     //Ajusta la cantidad segun si es coste o produccion, dependerá de los eventos
