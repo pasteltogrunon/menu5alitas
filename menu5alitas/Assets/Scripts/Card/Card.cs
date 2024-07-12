@@ -44,6 +44,11 @@ public abstract class Card : MonoBehaviour
         originPosition = transform.position;
     }
 
+    public void Select(Vector3 handPosition)
+    {
+        originPosition = handPosition;
+    }
+
     public void endDrag()
     {
         isDragged = false;
