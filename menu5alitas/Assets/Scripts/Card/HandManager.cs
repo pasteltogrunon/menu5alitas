@@ -13,9 +13,10 @@ public class HandManager : MonoBehaviour
     public List<Card> Hand = new List<Card>();
     public int CurrentTier = 1;
 
-    [SerializeField] Deck deck;
+    [SerializeField] Deck handDeck;
     [SerializeField] Collection cardCollection;
 
+    public bool isInGolemScreen = false;
     public bool isChoosingCard = false;
     private struct ChoosingCards
     {
@@ -58,6 +59,8 @@ public class HandManager : MonoBehaviour
 
     private void Update()
     {
+        if (isInGolemScreen) return;
+
         //Si sueltas, acabar el drag
         if (Input.GetMouseButtonUp(0))
         {
@@ -189,7 +192,7 @@ public class HandManager : MonoBehaviour
 
     private GameObject GetRandomCard()
     {
-        string id = deck.takeRandomCard();
+        string id = handDeck.takeRandomCard();
         return cardCollection.GetCardPrefab(id, CurrentTier);
     }
 
@@ -207,11 +210,11 @@ public class HandManager : MonoBehaviour
 
     public void RemoveCardFromDeck(string id)
     {
-        deck.RemoveCard(id);
+        handDeck.RemoveCard(id);
     }
 
     public void AddCardToDeck(string id)
     {
-        deck.AddCard(id);
+        handDeck.AddCard(id);
     }
 }

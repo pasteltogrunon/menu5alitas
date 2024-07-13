@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c21024ddb4686648a71777222021d2a, type: 3}
   m_Name: SopaDeCosas
   m_EditorClassIdentifier: 
-  Id: buff_sopadecosas
+  Id: buff_sopa
   HasTier: 0
   Cards:
   - {fileID: 7964144986810320908, guid: 2060305e365b41e4f9c26c9a32e516ee, type: 3}

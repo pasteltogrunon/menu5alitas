@@ -103,9 +103,9 @@ public class ResourceManager : MonoBehaviour
         if (resourceCounter.counterType == ResourceCounterType.AlreadyAdjusted)
             return resourceCounter.amount;
 
-        for (int i = buffs.Count - 1; i >= 0; i--)
+        List<Buff> buffsCopy = new List<Buff>(buffs);
+        foreach (Buff buff in buffsCopy)
         {
-            Buff buff = buffs[i];
             if (buff.turnsLeft > 0)
             {
                 if (buff.counterType == resourceCounter.counterType && buff.resource == resourceCounter.resource)
@@ -116,7 +116,7 @@ public class ResourceManager : MonoBehaviour
             }
             else
             {
-                buffs.RemoveAt(i);
+                buffs.Remove(buff);
             }
         }
 
