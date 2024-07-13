@@ -103,7 +103,7 @@ MonoBehaviour:
       counterType: 0
     waterResourceCounter:
       resource: 1
-      amount: 20
+      amount: 12
       counterType: 0
     workerResourceCounter:
       resource: 2

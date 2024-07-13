@@ -107,7 +107,7 @@ MonoBehaviour:
       counterType: 0
     workerResourceCounter:
       resource: 2
-      amount: 8
+      amount: 6
       counterType: 0
     scienceResourceCounter:
       resource: 3

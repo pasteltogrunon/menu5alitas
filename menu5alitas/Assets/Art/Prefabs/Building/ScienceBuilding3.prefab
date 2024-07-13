@@ -111,7 +111,7 @@ MonoBehaviour:
       counterType: 0
     scienceResourceCounter:
       resource: 3
-      amount: 20
+      amount: 12
       counterType: 0
   costPerEvent:
     metalResourceCounter:

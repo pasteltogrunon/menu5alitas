@@ -99,7 +99,7 @@ MonoBehaviour:
   productionPerTurn:
     metalResourceCounter:
       resource: 0
-      amount: 8
+      amount: 6
       counterType: 0
     waterResourceCounter:
       resource: 1
