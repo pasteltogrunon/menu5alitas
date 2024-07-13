@@ -116,11 +116,11 @@ MonoBehaviour:
   costPerEvent:
     metalResourceCounter:
       resource: 0
-      amount: 0
+      amount: 1
       counterType: 1
     waterResourceCounter:
       resource: 1
-      amount: 0
+      amount: 1
       counterType: 1
     workerResourceCounter:
       resource: 2
@@ -132,4 +132,5 @@ MonoBehaviour:
       counterType: 1
   id: science
   tier: 1
+  happinessPerTurn: 0
   requiresEnergy: 1

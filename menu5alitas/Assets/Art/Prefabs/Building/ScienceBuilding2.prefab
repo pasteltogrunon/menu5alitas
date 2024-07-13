@@ -116,11 +116,11 @@ MonoBehaviour:
   costPerEvent:
     metalResourceCounter:
       resource: 0
-      amount: 0
+      amount: 2
       counterType: 1
     waterResourceCounter:
       resource: 1
-      amount: 0
+      amount: 3
       counterType: 1
     workerResourceCounter:
       resource: 2
