@@ -6,6 +6,8 @@ public class HandManager : MonoBehaviour
 {
     public static HandManager Instance;
 
+    private GameManager gameManager;
+
     [SerializeField] uint StartingCardsAmount = 5;
 
     public List<Card> Hand = new List<Card>();
@@ -51,6 +53,7 @@ public class HandManager : MonoBehaviour
     private void Start()
     {
         AddStartingHand();
+        gameManager = GameManager.Instance;
     }
 
     private void Update()
@@ -162,9 +165,18 @@ public class HandManager : MonoBehaviour
     {
         isChoosingCard = true;
 
-        choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.left * 1.25f, Quaternion.identity, transform);
-        choosingCards.CardCenter = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2, Quaternion.identity, transform);
-        choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.right * 1.25f, Quaternion.identity, transform);
+        if(gameManager.GetCurrentCatastrofeId() == "PESIMISM")
+        {
+            Debug.Log("PESIMISM DETECTED");
+            choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.left * 0.75f, Quaternion.identity, transform);
+            choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.right * 0.75f, Quaternion.identity, transform);
+        }
+        else
+        {
+            choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.left * 1.25f, Quaternion.identity, transform);
+            choosingCards.CardCenter = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2, Quaternion.identity, transform);
+            choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.right * 1.25f, Quaternion.identity, transform);
+        }
     }
 
     private void AddRandomCard()

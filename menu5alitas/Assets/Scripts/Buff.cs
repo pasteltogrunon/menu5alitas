@@ -11,6 +11,8 @@ public class Buff : ScriptableObject
 
     public uint turnsLeft;
 
+    public string HardBuffId = "";
+
     public Buff(Buff b)
     {
         turnsLeft = b.turnsLeft;

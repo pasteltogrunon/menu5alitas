@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -61,6 +62,9 @@ public class ResourceManager : MonoBehaviour
 
     public void ApplyWorldEvent(Buff b)
     {
+        Happiness -= 5;
+        if (b.HardBuffId != "")
+            return;
         storedResources -= resourceCostPerEvent;
         buffs.Add(b);
     }
@@ -99,8 +103,9 @@ public class ResourceManager : MonoBehaviour
         if (resourceCounter.counterType == ResourceCounterType.AlreadyAdjusted)
             return resourceCounter.amount;
 
-        foreach (Buff buff in buffs)
+        for (int i = buffs.Count - 1; i >= 0; i--)
         {
+            Buff buff = buffs[i];
             if (buff.turnsLeft > 0)
             {
                 if (buff.counterType == resourceCounter.counterType && buff.resource == resourceCounter.resource)
@@ -111,7 +116,7 @@ public class ResourceManager : MonoBehaviour
             }
             else
             {
-                buffs.Remove(buff);
+                buffs.RemoveAt(i);
             }
         }
 

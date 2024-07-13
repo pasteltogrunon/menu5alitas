@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     public uint turn = 1;
     public uint turnsPerEvent = 5;
     public List<Buff> worldEvents = new List<Buff>();
+    private string currentCatastrofe = "";
 
     private HandManager handManager;
     private ResourceManager resourceManager;
     private UIManager uiManager;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
 
     void Start()
@@ -34,18 +43,28 @@ public class GameManager : MonoBehaviour
         if (handManager.isChoosingCard) return;
 
         turn++;
-        handManager.StealCard();
         resourceManager.NextTurn();
         uiManager.updateTurnUI(turn);
         if(turn % turnsPerEvent == 0)
         {
             NextEvent();
         }
+        handManager.StealCard();
+    }
+
+    public string GetCurrentCatastrofeId()
+    {
+        return currentCatastrofe;
     }
 
     private void NextEvent()
     {
-        resourceManager.ApplyWorldEvent(worldEvents[Random.Range(0, worldEvents.Count)]);
+        currentCatastrofe = "";
+        var nextBuff = worldEvents[Random.Range(0, worldEvents.Count)];
+        resourceManager.ApplyWorldEvent(nextBuff);
+
+        if(nextBuff.HardBuffId != "")
+            currentCatastrofe = nextBuff.HardBuffId;
 
     }
 }
