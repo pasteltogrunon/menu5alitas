@@ -131,5 +131,7 @@ MonoBehaviour:
       amount: 0
       counterType: 1
   id: generator
-  tier: 1
+  tier: 2
+  happinessPerTurn: 0
+  requiresEnergy: 0
   radius: 1

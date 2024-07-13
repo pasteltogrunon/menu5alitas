@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c21024ddb4686648a71777222021d2a, type: 3}
+  m_Name: TocaPolloFrito
+  m_EditorClassIdentifier: 
+  Id: buff_pollofrito
+  HasTier: 0
+  Cards:
+  - {fileID: 7964144986810320908, guid: 2cd4166c6eeb1c349a04558f713a8136, type: 3}
