@@ -2277,6 +2277,12 @@ MonoBehaviour:
   turnsPerGolemScreen: 20
   worldEvents:
   - {fileID: 11400000, guid: 32b1d7893d5b4a44dacecbd72383e261, type: 2}
+  - {fileID: 11400000, guid: f3b2e4e5e24db8a4ea15ae9fc9820fa3, type: 2}
+  - {fileID: 11400000, guid: b9554e1a00cf1ce4cb8672079623fc5d, type: 2}
+  - {fileID: 11400000, guid: fb4d0db0ce9b32443bbad1fa964435e6, type: 2}
+  - {fileID: 11400000, guid: 19874b30add8e06429542c96bd4a4430, type: 2}
+  - {fileID: 11400000, guid: 883544d3c46e4e541827e80a8f84d459, type: 2}
+  - {fileID: 11400000, guid: d628bb9d32ebcf74f9b7f99297562fb4, type: 2}
 --- !u!1 &820159252
 GameObject:
   m_ObjectHideFlags: 0
