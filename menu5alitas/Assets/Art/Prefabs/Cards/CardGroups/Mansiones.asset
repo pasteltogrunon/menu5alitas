@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c21024ddb4686648a71777222021d2a, type: 3}
   m_Name: Mansiones
   m_EditorClassIdentifier: 
-  Id: buff_mansion
+  Id: buff_mansiones
   HasTier: 0
   Cards:
   - {fileID: 7964144986810320908, guid: 6940ec6f0a63a1545a3ac030afc1a6a7, type: 3}
