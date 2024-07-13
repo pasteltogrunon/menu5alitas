@@ -9,6 +9,9 @@ public class BuildingCard : Card
     //De momento poco, para el testeo
     public override bool tryPlayCard(Tile tile)
     {
+        if(GameManager.Instance.GetCurrentCatastrofeId() == HardBuff.OVERLOAD)
+            return false;
+
         float canPlaceFactor = tile.canPlace(buildingPrefab.GetComponent<Building>());
         if(canPlaceFactor != 0)
         {

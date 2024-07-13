@@ -63,7 +63,7 @@ public class ResourceManager : MonoBehaviour
     public void ApplyWorldEvent(Buff b)
     {
         Happiness -= 5;
-        if (b.HardBuffId != "")
+        if (b.HardBuffId != HardBuff.None)
             return;
         storedResources -= resourceCostPerEvent;
         buffs.Add(b);

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public uint turnsPerEvent = 5;
     public uint turnsPerGolemScreen = 20;
     public List<Buff> worldEvents = new List<Buff>();
-    private string currentCatastrofe = "";
+    private HardBuff currentCatastrofe = HardBuff.None;
 
     private HandManager handManager;
     private ResourceManager resourceManager;
@@ -45,11 +45,12 @@ public class GameManager : MonoBehaviour
         turn++;
         resourceManager.NextTurn();
         uiManager.updateTurnUI(turn);
-        if(turn % turnsPerEvent == 0)
+        if (turn % turnsPerEvent == 0)
         {
+            ApplyEndEvents();
             NextEvent();
         }
-        if(turn % turnsPerGolemScreen == 0)
+        if (turn % turnsPerGolemScreen == 0)
         {
             handManager.isInGolemScreen = true;
             uiManager.ShowGolemScreen();
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
         handManager.StealCard();
     }
 
-    public string GetCurrentCatastrofeId()
+    public HardBuff GetCurrentCatastrofeId()
     {
         return currentCatastrofe;
 
@@ -68,14 +69,13 @@ public class GameManager : MonoBehaviour
 
     private void NextEvent()
     {
-
-        currentCatastrofe = "";
+        currentCatastrofe = HardBuff.None;
         var nextBuff = worldEvents[Random.Range(0, worldEvents.Count)];
         resourceManager.ApplyWorldEvent(nextBuff);
 
-        if(nextBuff.HardBuffId != "")
+        if (nextBuff.HardBuffId != HardBuff.None)
             currentCatastrofe = nextBuff.HardBuffId;
-        if(worldEvents.Count > 0)
+        if (worldEvents.Count > 0)
             resourceManager.ApplyWorldEvent(worldEvents[Random.Range(0, worldEvents.Count)]);
     }
 
@@ -88,4 +88,37 @@ public class GameManager : MonoBehaviour
 
         return 0;
     }
+
+    private void ApplyEndEvents()
+    {
+        switch (currentCatastrofe)
+        {
+            case HardBuff.TAXES_FROM_ABOVE:
+                resourceManager.storedResources.metalResourceCounter.amount -= 12;
+                return;
+
+            case HardBuff.RATS_IN_FOOD:
+                resourceManager.storedResources.waterResourceCounter.amount -= 10;
+                return;
+
+            case HardBuff.PANDEMIC_INCOMING:
+                resourceManager.storedResources.workerResourceCounter.amount -= 8;
+                return;
+
+            default:
+                return;
+        }
+    }
+}
+
+public enum HardBuff
+{
+    None,
+    PESIMISM,
+    TAXES_FROM_ABOVE,
+    I_FUCKED_UP,
+    OVERLOAD,
+    RATS_IN_FOOD,
+    PANDEMIC_INCOMING,
+    BREAD_YES_BUT_NO_WINE
 }
