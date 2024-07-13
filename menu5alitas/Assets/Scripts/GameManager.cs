@@ -6,13 +6,18 @@ public class GameManager : MonoBehaviour
 {
     public uint turn = 1;
     public uint turnsPerEvent = 5;
-    
+    public List<Buff> worldEvents = new List<Buff>();
+
     private HandManager handManager;
+    private ResourceManager resourceManager;
+    private UIManager uiManager;
     // Start is called before the first frame update
 
     void Start()
     {
         handManager = HandManager.Instance;
+        resourceManager = ResourceManager.Instance;
+        uiManager = UIManager.Instance;
     }
 
     // Update is called once per frame
@@ -26,12 +31,12 @@ public class GameManager : MonoBehaviour
 
     private void NextTurn()
     {
-        if (HandManager.Instance.isChoosingCard) return;
+        if (handManager.isChoosingCard) return;
 
         turn++;
         handManager.StealCard();
-        ResourceManager.Instance.NextTurn();
-        UIManager.Instance.updateTurnUI(turn);
+        resourceManager.NextTurn();
+        uiManager.updateTurnUI(turn);
         if(turn % turnsPerEvent == 0)
         {
             NextEvent();
@@ -40,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void NextEvent()
     {
-        ResourceManager.Instance.NextEvent();
+        resourceManager.ApplyWorldEvent(worldEvents[Random.Range(0, worldEvents.Count)]);
 
     }
 }
