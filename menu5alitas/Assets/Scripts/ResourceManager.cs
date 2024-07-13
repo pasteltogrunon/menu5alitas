@@ -1,16 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance;
 
-    public ResourceCounterList storagedResources = new ResourceCounterList(ResourceCounterType.Storage);
+    public ResourceCounterList storedResources = new ResourceCounterList(ResourceCounterType.Storage);
     //Estos de aqui ya recibiran la produccion y el coste ajustados, asi que no habra que ajustarlo por evento.
     public ResourceCounterList resourceProductionPerTurn = new ResourceCounterList(ResourceCounterType.AlreadyAdjusted);
     public ResourceCounterList resourceCostPerEvent = new ResourceCounterList(ResourceCounterType.AlreadyAdjusted);
+
+    private List<Buff> buffs = new List<Buff>();
 
     public int HappinessPerTurn = 0;
 
@@ -51,21 +54,21 @@ public class ResourceManager : MonoBehaviour
 
     public void NextTurn()
     {
-        storagedResources += resourceProductionPerTurn;
+        storedResources += resourceProductionPerTurn;
 
         Happiness = Mathf.Clamp(Happiness + HappinessPerTurn, 0, 100);
     }
 
     public bool canAfford(ResourceCounterList cost)
     {
-        return storagedResources >= cost;
+        return storedResources >= cost;
     }
 
     public bool subtractResources(ResourceCounterList cost)
     {
-        if(storagedResources >= cost)
+        if(storedResources >= cost)
         {
-            storagedResources -= cost;
+            storedResources -= cost;
             return true;
         }
         return false;
@@ -73,16 +76,30 @@ public class ResourceManager : MonoBehaviour
 
     void updateUI()
     {
-        ResourcesUI.Instance.UpdateUI(storagedResources, Happiness);
+        ResourcesUI.Instance.UpdateUI(storedResources, Happiness);
+    }
+
+    void addBuff(Buff buff)
+    {
+        buffs.Add(buff);
     }
 
     //Ajusta la cantidad segun si es coste o produccion, dependerá de los eventos
     public int ResourceAmountAdjustedFromBuffs(ResourceCounter resourceCounter)
     {
-        switch(resourceCounter.counterType)
+        if (resourceCounter == null)
+            return 0;
+
+        if (resourceCounter.counterType == ResourceCounterType.AlreadyAdjusted)
+            return resourceCounter.amount;
+
+        foreach (Buff buff in buffs)
         {
-            default:
-                return resourceCounter.amount;
+            var counter = buff.value.GetResourceCounterByResourceType(resourceCounter.resource);
+            if (counter.counterType == ResourceCounterType.Production)
+                resourceCounter.amount += buff.value.GetResourceCounterByResourceType(resourceCounter.resource).amount;
         }
+
+        return resourceCounter.amount;
     }
 }

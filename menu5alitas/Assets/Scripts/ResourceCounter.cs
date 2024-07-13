@@ -50,6 +50,11 @@ public class ResourceCounterList
         resourcesDictionary.Add(ResourceType.Science, scienceResourceCounter);
     }
 
+    public ResourceCounter GetResourceCounterByResourceType(ResourceType resourceType)
+    {
+        return resourcesDictionary[resourceType];
+    }
+
     public int AdjustedAmountOfResource(ResourceType resource)
     {
         return resourcesDictionary[resource].AdjustedResourceAmount();
