@@ -275,7 +275,7 @@ MonoBehaviour:
   cost:
     metalResourceCounter:
       resource: 0
-      amount: 1
+      amount: 3
       counterType: 1
     waterResourceCounter:
       resource: 1
@@ -283,7 +283,7 @@ MonoBehaviour:
       counterType: 1
     workerResourceCounter:
       resource: 2
-      amount: 1
+      amount: 2
       counterType: 1
     scienceResourceCounter:
       resource: 3

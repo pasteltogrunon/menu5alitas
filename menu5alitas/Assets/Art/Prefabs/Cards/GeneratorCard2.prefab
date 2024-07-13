@@ -281,7 +281,7 @@ MonoBehaviour:
       counterType: 1
     workerResourceCounter:
       resource: 2
-      amount: 5
+      amount: 6
       counterType: 1
     scienceResourceCounter:
       resource: 3

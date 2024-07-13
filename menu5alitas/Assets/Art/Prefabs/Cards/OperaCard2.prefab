@@ -275,7 +275,7 @@ MonoBehaviour:
   cost:
     metalResourceCounter:
       resource: 0
-      amount: 2
+      amount: 3
       counterType: 1
     waterResourceCounter:
       resource: 1

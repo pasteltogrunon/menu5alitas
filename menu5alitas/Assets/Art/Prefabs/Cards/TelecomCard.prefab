@@ -287,7 +287,7 @@ MonoBehaviour:
       counterType: 1
     scienceResourceCounter:
       resource: 3
-      amount: 5
+      amount: 4
       counterType: 1
   sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   buildingPrefab: {fileID: 5384427012566192442, guid: 4de391595e4f71f46959606189ea8187, type: 3}
