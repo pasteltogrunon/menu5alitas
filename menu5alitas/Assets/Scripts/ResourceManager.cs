@@ -64,7 +64,7 @@ public class ResourceManager : MonoBehaviour
         Happiness -= 5;
         if (b.HardBuffId != HardBuff.None)
             return;
-        storedResources -= resourceCostPerEvent;
+        subtractResources(resourceCostPerEvent);
         buffs.Add(b);
     }
 

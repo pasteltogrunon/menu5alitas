@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79571b4f45116184bb3d7707d12b3d3a, type: 3}
-  m_Name: PesimismCatastrofe
+  m_Name: Pandemic
   m_EditorClassIdentifier: 
   resource: 0
   factor: 0
   counterType: 0
-  turnsLeft: 0
-  HardBuffId: 
+  turnsLeft: 5
+  HardBuffId: 6

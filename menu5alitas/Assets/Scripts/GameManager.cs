@@ -66,13 +66,14 @@ public class GameManager : MonoBehaviour
 
     private void NextEvent()
     {
-
         if (worldEvents.Count == 0) return;
 
         currentCatastrofe = HardBuff.None;
 
         var nextBuff = worldEvents[Random.Range(0, worldEvents.Count)];
         resourceManager.ApplyWorldEvent(nextBuff);
+
+        Debug.Log("Catastrophe: " + nextBuff.HardBuffId.ToString());
 
         if (nextBuff.HardBuffId != HardBuff.None)
             currentCatastrofe = nextBuff.HardBuffId;
