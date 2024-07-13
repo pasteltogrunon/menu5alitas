@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
@@ -79,6 +78,7 @@ public class ResourceManager : MonoBehaviour
         if (storedResources >= cost)
         {
             storedResources -= cost;
+            updateUI();
             return true;
         }
         return false;

@@ -42,6 +42,10 @@ public class UIManager : MonoBehaviour
     public void ShowGolemScreen()
     {
         GolemScreen.SetActive(true);
+        ChangeMetalSlider(0);
+        ChangeWaterSlider(0);
+        ChangeWorkerSlider(0);
+        ChangeScienceSlider(0);
     }
 
     public void ChangeMetalSlider(float fillAmount)
