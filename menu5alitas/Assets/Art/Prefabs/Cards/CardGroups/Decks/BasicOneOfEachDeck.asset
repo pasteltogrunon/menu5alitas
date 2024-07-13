@@ -20,6 +20,10 @@ MonoBehaviour:
   - science
   - opera
   - telecom
-  - tier3
   - buff_pollofrito
-  remainingCardIds: []
+  remainingCardIds:
+  - factory
+  - generator
+  - house
+  - water
+  - telecom
