@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public uint turn = 1;
+    public uint turnsPerEvent = 5;
     
     private HandManager handManager;
     // Start is called before the first frame update
@@ -30,5 +31,16 @@ public class GameManager : MonoBehaviour
         turn++;
         handManager.StealCard();
         ResourceManager.Instance.NextTurn();
+        UIManager.Instance.updateTurnUI(turn);
+        if(turn % turnsPerEvent == 0)
+        {
+            NextEvent();
+        }
+    }
+
+    private void NextEvent()
+    {
+        ResourceManager.Instance.NextEvent();
+
     }
 }
