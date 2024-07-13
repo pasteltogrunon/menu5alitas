@@ -11,7 +11,7 @@ public class Buff : ScriptableObject
 
     public uint turnsLeft;
 
-    public string HardBuffId = "";
+    public HardBuff HardBuffId = HardBuff.None;
 
     public Buff(Buff b)
     {

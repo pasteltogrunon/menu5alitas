@@ -168,9 +168,8 @@ public class HandManager : MonoBehaviour
     {
         isChoosingCard = true;
 
-        if(gameManager.GetCurrentCatastrofeId() == "PESIMISM")
+        if(gameManager.GetCurrentCatastrofeId() == HardBuff.PESIMISM)
         {
-            Debug.Log("PESIMISM DETECTED");
             choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.left * 0.75f, Quaternion.identity, transform);
             choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.right * 0.75f, Quaternion.identity, transform);
         }

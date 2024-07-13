@@ -14,13 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardIds:
   - factory
+  - factory
+  - factory
+  - generator
+  - generator
   - generator
   - house
+  - house
+  - house
+  - water
+  - water
   - water
   - science
+  - science
+  - science
+  - opera
+  - opera
   - opera
   - telecom
+  - telecom
   - buff_pollofrito
+  - buff_trabajosforzados
+  - buff_jornadareducida
+  - buff_literasdobles
+  - buff_mansiones
+  - buff_anal
+  - buff_sopa
+  - buff_pollofrito
+  - buff_cientifico
   remainingCardIds:
   - factory
   - generator
