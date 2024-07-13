@@ -59,6 +59,11 @@ public class ResourceManager : MonoBehaviour
         Happiness = Mathf.Clamp(Happiness + HappinessPerTurn, 0, 100);
     }
 
+    public void NextEvent()
+    {
+        storedResources -= resourceCostPerEvent;
+    }
+
     public bool canAfford(ResourceCounterList cost)
     {
         return storedResources >= cost;
@@ -77,6 +82,7 @@ public class ResourceManager : MonoBehaviour
     void updateUI()
     {
         ResourcesUI.Instance.UpdateUI(storedResources, Happiness);
+        UIManager.Instance.UpdateResourcesUI(storedResources, Happiness);
     }
 
     void addBuff(Buff buff)
