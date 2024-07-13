@@ -62,21 +62,21 @@ public class GameManager : MonoBehaviour
     public HardBuff GetCurrentCatastrofeId()
     {
         return currentCatastrofe;
-
-
-
     }
 
     private void NextEvent()
     {
+        if (worldEvents.Count == 0) return;
+
         currentCatastrofe = HardBuff.None;
+
         var nextBuff = worldEvents[Random.Range(0, worldEvents.Count)];
         resourceManager.ApplyWorldEvent(nextBuff);
 
+        Debug.Log("Catastrophe: " + nextBuff.HardBuffId.ToString());
+
         if (nextBuff.HardBuffId != HardBuff.None)
             currentCatastrofe = nextBuff.HardBuffId;
-        if (worldEvents.Count > 0)
-            resourceManager.ApplyWorldEvent(worldEvents[Random.Range(0, worldEvents.Count)]);
     }
 
 
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
     {
         uint golemPiece = turn % turnsPerGolemScreen;
 
-        resourceManager.storedResources -= spentResources;
+        resourceManager.subtractResources(spentResources);
 
         return 0;
     }
