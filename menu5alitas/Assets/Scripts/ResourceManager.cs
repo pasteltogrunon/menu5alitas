@@ -81,7 +81,6 @@ public class ResourceManager : MonoBehaviour
 
     void updateUI()
     {
-        ResourcesUI.Instance.UpdateUI(storedResources, Happiness);
         UIManager.Instance.UpdateResourcesUI(storedResources, Happiness);
     }
 
