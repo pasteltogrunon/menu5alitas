@@ -41,7 +41,7 @@ public class ResourceManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void updateResourceCounters(ResourceCounterList production, ResourceCounterList cost)
@@ -59,9 +59,10 @@ public class ResourceManager : MonoBehaviour
         Happiness = Mathf.Clamp(Happiness + HappinessPerTurn, 0, 100);
     }
 
-    public void NextEvent()
+    public void ApplyWorldEvent(Buff b)
     {
         storedResources -= resourceCostPerEvent;
+        buffs.Add(b);
     }
 
     public bool canAfford(ResourceCounterList cost)
@@ -71,7 +72,7 @@ public class ResourceManager : MonoBehaviour
 
     public bool subtractResources(ResourceCounterList cost)
     {
-        if(storedResources >= cost)
+        if (storedResources >= cost)
         {
             storedResources -= cost;
             return true;
@@ -100,8 +101,18 @@ public class ResourceManager : MonoBehaviour
 
         foreach (Buff buff in buffs)
         {
-            if (buff.counterType == resourceCounter.counterType && buff.resource == resourceCounter.resource)
-                resourceCounter.amount = Mathf.CeilToInt(buff.factor * resourceCounter.amount);
+            if (buff.turnsLeft > 0)
+            {
+                if (buff.counterType == resourceCounter.counterType && buff.resource == resourceCounter.resource)
+                    resourceCounter.amount = Mathf.CeilToInt(buff.factor * resourceCounter.amount);
+
+                buff.turnsLeft--;
+                return resourceCounter.amount;
+            }
+            else
+            {
+                buffs.Remove(buff);
+            }
         }
 
         return resourceCounter.amount;
