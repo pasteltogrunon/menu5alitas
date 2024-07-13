@@ -84,7 +84,7 @@ public class ResourceManager : MonoBehaviour
         UIManager.Instance.UpdateResourcesUI(storedResources, Happiness);
     }
 
-    void addBuff(Buff buff)
+    public void addBuff(Buff buff)
     {
         buffs.Add(buff);
     }
@@ -100,9 +100,8 @@ public class ResourceManager : MonoBehaviour
 
         foreach (Buff buff in buffs)
         {
-            var counter = buff.value.GetResourceCounterByResourceType(resourceCounter.resource);
-            if (counter.counterType == ResourceCounterType.Production)
-                resourceCounter.amount += buff.value.GetResourceCounterByResourceType(resourceCounter.resource).amount;
+            if (buff.counterType == resourceCounter.counterType && buff.resource == resourceCounter.resource)
+                resourceCounter.amount = Mathf.CeilToInt(buff.factor * resourceCounter.amount);
         }
 
         return resourceCounter.amount;
