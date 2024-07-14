@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public uint turn = 1;
     public uint turnsPerEvent = 5;
     public uint turnsPerGolemScreen = 20;
+
+    public uint turnTier2 = 10;
+    public uint turnTier3 = 25;
+
     public List<Buff> worldEvents = new List<Buff>();
     private HardBuff currentCatastrofe = HardBuff.None;
 
@@ -45,11 +49,22 @@ public class GameManager : MonoBehaviour
         turn++;
         resourceManager.NextTurn();
         uiManager.updateTurnUI(turn);
+
+        if(turn == turnTier2)
+        {
+            handManager.AddCardToDeck("tier2");
+        }
+        else if(turn == turnTier3)
+        {
+            handManager.AddCardToDeck("tier3");
+        }
+
         if (turn % turnsPerEvent == 0)
         {
             ApplyEndEvents();
             NextEvent();
         }
+
         if (turn % turnsPerGolemScreen == 0)
         {
             handManager.isInGolemScreen = true;
@@ -73,7 +88,7 @@ public class GameManager : MonoBehaviour
         var nextBuff = worldEvents[Random.Range(0, worldEvents.Count)];
         resourceManager.ApplyWorldEvent(nextBuff);
 
-        Debug.Log("Catastrophe: " + nextBuff.HardBuffId.ToString());
+        UIManager.Instance.updateCatastropheText(nextBuff.HardBuffId.ToString());
 
         if (nextBuff.HardBuffId != HardBuff.None)
             currentCatastrofe = nextBuff.HardBuffId;

@@ -9,7 +9,12 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [SerializeField] TMP_Text storageText;
+    [SerializeField] TMP_Text productionText;
+    [SerializeField] TMP_Text costText;
     [SerializeField] Image happinessBar;
+    [SerializeField] TMP_Text happinessFactorText;
+
+    [SerializeField] TMP_Text catastropheText;
 
     [SerializeField] TMP_Text turnText;
 
@@ -25,19 +30,37 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
-    public void UpdateResourcesUI(ResourceCounterList resourcesStorage, float happiness)
+    public void UpdateResourcesUI(ResourceCounterList resourcesStorage, ResourceCounterList production, ResourceCounterList cost, float happiness)
     {
         storageText.text = "Metal: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Metal) +
             "\nWater: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Water) +
             "\nWorker: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Worker) +
             "\nScience: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Science);
+
+        productionText.text = "Metal: " + production.AdjustedAmountOfResource(ResourceType.Metal) +
+            "\nWater: " + production.AdjustedAmountOfResource(ResourceType.Water) +
+            "\nWorker: " + production.AdjustedAmountOfResource(ResourceType.Worker) +
+            "\nScience: " + production.AdjustedAmountOfResource(ResourceType.Science);
+
+        costText.text = "Metal: " + cost.AdjustedAmountOfResource(ResourceType.Metal) +
+            "\nWater: " + cost.AdjustedAmountOfResource(ResourceType.Water) +
+            "\nWorker: " + cost.AdjustedAmountOfResource(ResourceType.Worker) +
+            "\nScience: " + cost.AdjustedAmountOfResource(ResourceType.Science);
+
         happinessBar.fillAmount = happiness / 100;
+        happinessFactorText.text = "x" + Mathf.Pow(happiness / 100, 2);
     }
 
     public void updateTurnUI(uint turn)
     {
-        turnText.text = turn + "/100";
+        turnText.text = turn + "/50";
     }
+
+    public void updateCatastropheText(string text)
+    {
+        catastropheText.text = text;
+    }
+
 
     public void ShowGolemScreen()
     {

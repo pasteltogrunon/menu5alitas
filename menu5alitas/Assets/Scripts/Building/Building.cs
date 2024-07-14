@@ -35,7 +35,7 @@ public class Building : MonoBehaviour
     {
         if (transform.parent)
         {
-            return (float)ResourceManager.Instance.Happiness / 100;
+            return Mathf.Pow((float) (ResourceManager.Instance.Happiness) / 100, 2);
         }
         return 1;
     }
