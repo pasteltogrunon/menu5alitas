@@ -123,34 +123,34 @@ public class GameManager : MonoBehaviour
         switch(golemPiece)
         {
             case 1:
-                cost_metal = 0.25f;
-                cost_water = 0.1f;
-                cost_workers = 0.15f;
-                cost_science = 0.5f;
+                cost_metal = 15;
+                cost_water = 15;
+                cost_workers = 15;
+                cost_science = 20;
                 break;
             case 2:
-                cost_metal = 0.25f;
-                cost_water = 0.1f;
-                cost_workers = 0.15f;
-                cost_science = 0.5f;
+                cost_metal = 20;
+                cost_water = 20;
+                cost_workers = 20;
+                cost_science = 40;
                 break;
             case 3:
-                cost_metal = 0.25f;
-                cost_water = 0.1f;
-                cost_workers = 0.15f;
-                cost_science = 0.5f;
+                cost_metal = 30;
+                cost_water = 30;
+                cost_workers = 30;
+                cost_science = 55;
                 break;
             case 4:
-                cost_metal = 0.25f;
-                cost_water = 0.1f;
-                cost_workers = 0.15f;
-                cost_science = 0.5f;
+                cost_metal = 40;
+                cost_water = 40;
+                cost_workers = 40;
+                cost_science = 70;
                 break;
             case 5:
-                cost_metal = 0.25f;
-                cost_water = 0.1f;
-                cost_workers = 0.15f;
-                cost_science = 0.5f;
+                cost_metal = 50;
+                cost_water = 50;
+                cost_workers = 50;
+                cost_science = 80;
                 break;
         }
 
