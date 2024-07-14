@@ -13,6 +13,8 @@ public class Tile : MonoBehaviour
     [SerializeField] Material lockedMat;
     [SerializeField] Material unlockedMat;
 
+    float hoverPhase = 0;
+
     private bool _unlocked = false;
     public bool Unlocked
     {
@@ -41,18 +43,32 @@ public class Tile : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        if(hoverPhase > 0 && hoverPhase < 0.75f)
+        {
+            hoverPhase = Mathf.Clamp01(hoverPhase - Time.deltaTime);
+            GetComponent<Renderer>().material.SetFloat("_HoverPhase", hoverPhase);
+        }
+    }
+
     //Gestionan el hover con el ratón
 
     public void startHover()
     {
-        if(Unlocked)
-            GetComponent<SpriteRenderer>().color = Color.red;
+        if (Unlocked)
+        {
+            hoverPhase = 1;
+            GetComponent<Renderer>().material.SetFloat("_HoverPhase", hoverPhase);
+        }
     }
 
     public void endHover()
     {
-        if(Unlocked)
-            GetComponent<SpriteRenderer>().color = Color.white;
+        if (Unlocked)
+        {
+            hoverPhase = 0.5f;
+        }
     }
 
     void unlock()
