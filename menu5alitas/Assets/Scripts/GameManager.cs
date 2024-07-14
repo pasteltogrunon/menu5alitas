@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     public uint turnTier2 = 10;
     public uint turnTier3 = 25;
 
+    public float[] ratings = new float[5];
+
+    public float finalRating = 0;
+
     public List<Buff> worldEvents = new List<Buff>();
     private HardBuff currentCatastrofe = HardBuff.None;
 
@@ -160,6 +164,17 @@ public class GameManager : MonoBehaviour
         if (science > cost_science) science = cost_science;
 
         float rating = Mathf.Clamp(5 * (weight_metal * metal/cost_metal + weight_water * water/cost_water+ weight_workers * workers/cost_workers + weight_science * science/cost_science),0,5);
+
+        ratings[golemPiece] = rating;
+
+        if (golemPiece==5) 
+        {
+            for (int i=0; i<5; i++)
+            {
+                finalRating += ratings[i];
+            }
+            finalRating /= 5;
+        }
 
         return rating;
     }
