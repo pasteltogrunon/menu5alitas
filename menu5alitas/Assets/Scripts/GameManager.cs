@@ -99,13 +99,69 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public int GolemScore(ResourceCounterList spentResources)
+    public float GolemScore(ResourceCounterList spentResources)
     {
         uint golemPiece = turn % turnsPerGolemScreen;
 
         resourceManager.subtractResources(spentResources);
+        
+        float metal = spentResources.AdjustedAmountOfResource(ResourceType.Metal);
+        float water = spentResources.AdjustedAmountOfResource(ResourceType.Water);
+        float workers = spentResources.AdjustedAmountOfResource(ResourceType.Worker);
+        float science = spentResources.AdjustedAmountOfResource(ResourceType.Science);
+        
+        float weight_metal = 0.25f;
+        float weight_water = 0.1f;
+        float weight_workers = 0.15f;
+        float weight_science = 0.5f;
 
-        return 0;
+        float cost_metal = 1;
+        float cost_water = 1;
+        float cost_workers = 1;
+        float cost_science = 1;
+
+        switch(golemPiece)
+        {
+            case 1:
+                cost_metal = 0.25f;
+                cost_water = 0.1f;
+                cost_workers = 0.15f;
+                cost_science = 0.5f;
+                break;
+            case 2:
+                cost_metal = 0.25f;
+                cost_water = 0.1f;
+                cost_workers = 0.15f;
+                cost_science = 0.5f;
+                break;
+            case 3:
+                cost_metal = 0.25f;
+                cost_water = 0.1f;
+                cost_workers = 0.15f;
+                cost_science = 0.5f;
+                break;
+            case 4:
+                cost_metal = 0.25f;
+                cost_water = 0.1f;
+                cost_workers = 0.15f;
+                cost_science = 0.5f;
+                break;
+            case 5:
+                cost_metal = 0.25f;
+                cost_water = 0.1f;
+                cost_workers = 0.15f;
+                cost_science = 0.5f;
+                break;
+        }
+
+        if (metal > cost_metal) metal = cost_metal;
+        if (water > cost_water) water = cost_water;
+        if (workers > cost_workers) workers = cost_workers;
+        if (science > cost_science) science = cost_science;
+
+        float rating = Mathf.Clamp(5 * (weight_metal * metal/cost_metal + weight_water * water/cost_water+ weight_workers * workers/cost_workers + weight_science * science/cost_science),0,5);
+
+        return rating;
     }
 
     private void ApplyEndEvents()
