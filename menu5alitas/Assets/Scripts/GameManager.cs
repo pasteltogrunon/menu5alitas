@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     private ResourceManager resourceManager;
     private UIManager uiManager;
 
+    [SerializeField] AudioClip newCatastropheSound;
+
     private void Awake()
     {
         Instance = this;
@@ -87,6 +89,8 @@ public class GameManager : MonoBehaviour
 
         var nextBuff = worldEvents[Random.Range(0, worldEvents.Count)];
         resourceManager.ApplyWorldEvent(nextBuff);
+
+        SFXManager.PlaySound(newCatastropheSound);
 
         UIManager.Instance.updateCatastropheText(nextBuff.HardBuffId.ToString());
 

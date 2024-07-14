@@ -27,8 +27,8 @@ RectTransform:
   m_GameObject: {fileID: 7946014006829460976}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.03}
-  m_LocalScale: {x: 0.049999997, y: 0.031249998, z: 0.049999997}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.049999997, y: 0.05, z: 0.049999997}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2755717430809388580}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -181,8 +181,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2755717430809388580}
   - component: {fileID: 8681235923818695928}
-  - component: {fileID: 7694809272243228910}
   - component: {fileID: -8746603893204791264}
+  - component: {fileID: 4056043540236371588}
   m_Layer: 6
   m_Name: Sopa de Cosas
   m_TagString: Untagged
@@ -200,7 +200,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.6, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4977763666877167174}
@@ -247,7 +247,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d59caa1b38e865c46ad4a06e659da107, type: 3}
   m_Color: {r: 0.4245283, g: 0.4018334, b: 0.18623175, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -258,28 +258,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!64 &7694809272243228910
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7964144986810320908}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &-8746603893204791264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +288,31 @@ MonoBehaviour:
       amount: 0
       counterType: 1
   sprite: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  hoverCooldown: 0
+  cardPlaySound: {fileID: 8300000, guid: aacc1b83aff5fdb42bbd252f88bdeeaf, type: 3}
   buffs:
   - {fileID: 11400000, guid: 59ed914eaeaba9f4a96301ba78cb59da, type: 2}
   HappinessAmount: -20
+--- !u!65 &4056043540236371588
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7964144986810320908}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.1573334, y: 1.6173333, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
