@@ -54,9 +54,12 @@ public class ResourceManager : MonoBehaviour
 
     public void NextTurn()
     {
+        TileMap.Instance.UpdateMap();
+
         storedResources += resourceProductionPerTurn;
 
         Happiness = Mathf.Clamp(Happiness + HappinessPerTurn, 0, 100);
+
     }
 
     public void ApplyWorldEvent(Buff b)
@@ -86,7 +89,7 @@ public class ResourceManager : MonoBehaviour
 
     void updateUI()
     {
-        UIManager.Instance.UpdateResourcesUI(storedResources, Happiness);
+        UIManager.Instance.UpdateResourcesUI(storedResources, resourceProductionPerTurn, resourceCostPerEvent, Happiness);
     }
 
     public void addBuff(Buff buff)

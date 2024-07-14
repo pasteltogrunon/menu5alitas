@@ -42,9 +42,4 @@ MonoBehaviour:
   - buff_sopa
   - buff_pollofrito
   - buff_cientifico
-  remainingCardIds:
-  - factory
-  - generator
-  - house
-  - water
-  - telecom
+  remainingCardIds: []

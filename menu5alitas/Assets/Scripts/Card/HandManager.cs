@@ -9,11 +9,13 @@ public class HandManager : MonoBehaviour
     private GameManager gameManager;
 
     [SerializeField] uint StartingCardsAmount = 5;
+    [SerializeField] uint MaxCardsAmount = 10;
 
     public List<Card> Hand = new List<Card>();
     public int CurrentTier = 1;
 
-    [SerializeField] Deck handDeck;
+    Deck handDeck;
+    [SerializeField] Deck handDeckReference;
     [SerializeField] Collection cardCollection;
 
     public bool isInGolemScreen = false;
@@ -53,8 +55,11 @@ public class HandManager : MonoBehaviour
 
     private void Start()
     {
-        AddStartingHand();
         gameManager = GameManager.Instance;
+
+        handDeck = Instantiate(handDeckReference);
+
+        AddStartingHand();
     }
 
     private void Update()
@@ -89,8 +94,8 @@ public class HandManager : MonoBehaviour
                     var newPositon = ChooseCard(HoveredCard);
                     if (newPositon != Vector3.zero)
                     {
-                        HoveredCard.Select(newPositon);
-                        HoveredCard?.startDrag();
+                        HoveredCard.Select();
+                        HoveredCard = null;
                     }
                 }
                 else
@@ -107,11 +112,13 @@ public class HandManager : MonoBehaviour
         {
             AddRandomCard();
         }
-
+        recomputeHandPositions();
     }
 
     public void StealCard()
     {
+        if (Hand.Count >= MaxCardsAmount) return;
+
         SpawnCardChoice();
         //AddRandomCard();
     }
@@ -155,13 +162,9 @@ public class HandManager : MonoBehaviour
             return Vector3.zero;
         }
 
-        var newPosition = transform.position + Vector3.left * (Hand.Count - 3) * 1.25f;
-
-        chosenCardPrefab.transform.position = newPosition; //Estaria guay animarlo
-        Hand.Add(card);
         isChoosingCard = false;
 
-        return newPosition;
+        return card.targetPosition;
     }
 
     private void SpawnCardChoice()
@@ -170,23 +173,28 @@ public class HandManager : MonoBehaviour
 
         if(gameManager.GetCurrentCatastrofeId() == HardBuff.PESIMISM)
         {
-            choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.left * 0.75f, Quaternion.identity, transform);
-            choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.right * 0.75f, Quaternion.identity, transform);
+            choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 3, Quaternion.identity, transform);
+            choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 3, Quaternion.identity, transform);
+
+            choosingCards.CardLeft.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 2 + Vector3.left * 0.75f;
+            choosingCards.CardRight.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 2 + Vector3.right * 0.75f;
         }
         else
         {
-            choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.left * 1.25f, Quaternion.identity, transform);
-            choosingCards.CardCenter = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2, Quaternion.identity, transform);
-            choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 2 + Vector3.right * 1.25f, Quaternion.identity, transform);
+            choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 3, Quaternion.identity, transform);
+            choosingCards.CardCenter = Instantiate(GetRandomCard(), transform.position + Vector3.up * 3, Quaternion.identity, transform);
+            choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 3, Quaternion.identity, transform);
+
+            choosingCards.CardLeft.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 2 + Vector3.left * 1.25f;
+            choosingCards.CardCenter.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 2;
+            choosingCards.CardRight.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 2 + Vector3.right * 1.25f;
         }
     }
 
     private void AddRandomCard()
     {
-        var cardInHandOffset = 1.25f;
         GameObject cardPrefab = GetRandomCard();
-        var gameObject = Instantiate(cardPrefab, transform.position + Vector3.left * (Hand.Count - 3) * cardInHandOffset, Quaternion.identity, transform);
-        Hand.Add(gameObject.GetComponent<Card>());
+        Hand.Add(Instantiate(cardPrefab, transform).GetComponent<Card>());
     }
 
     private GameObject GetRandomCard()
@@ -198,13 +206,41 @@ public class HandManager : MonoBehaviour
     public void DeleteCard(Card card)
     {
         Hand.Remove(card);
-        var cardInHandOffset = 1.25f;
-        var c = -3;
+        recomputeHandPositions();
+    }
+
+    void recomputeHandPositions()
+    {
+        var c = 0;
         foreach (Card handCard in Hand)
         {
-            handCard.transform.position = transform.position + Vector3.left * c * cardInHandOffset;
+            handCard.targetPosition = transform.position + cardPositionOffset(c);
+            Vector3 euler = handCard.targetRotation.eulerAngles;
+            handCard.targetRotation = Quaternion.Euler(new Vector3(euler.x, euler.y, cardAngleInHand(c)));
             c++;
         }
+    }
+
+    Vector3 cardPositionOffset(int cardNum)
+    {
+        float cardInHandOffset = 4.0f/Hand.Count;
+        float x = (2 * cardNum + 1) * cardInHandOffset - 4;
+        return Vector3.left * x + (Vector3.up * (Mathf.Sqrt(1 - Mathf.Pow(x / 4, 2)) - 0.6f));
+    }
+
+    float cardAngleInHand(int cardNum)
+    {
+        float cardInHandOffset = 4.0f / Hand.Count;
+        float x = (2 * cardNum + 1) * cardInHandOffset - 4;
+
+        return 5 * x;
+    }
+
+    public void addCardToHandByXPosition(Card card)
+    {
+        Hand.Add(card);
+        Hand.Sort(CompareCardPosition);
+        recomputeHandPositions();
     }
 
     public void RemoveCardFromDeck(string id)
@@ -215,5 +251,13 @@ public class HandManager : MonoBehaviour
     public void AddCardToDeck(string id)
     {
         handDeck.AddCard(id);
+    }
+
+    static int CompareCardPosition(Card card1, Card card2)
+    {
+        Vector2 screenSpace1 = Camera.main.WorldToScreenPoint(card1.transform.position);
+        Vector2 screenSpace2 = Camera.main.WorldToScreenPoint(card2.transform.position);
+
+        return Mathf.FloorToInt(Mathf.Sign(screenSpace2.x - screenSpace1.x));
     }
 }
