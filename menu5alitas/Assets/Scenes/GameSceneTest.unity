@@ -4301,7 +4301,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18781bece732adf4884b46ef2d33fab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingCardsAmount: 5
+  startingCardsIds:
+  - factory
+  - house
+  - generator
+  - science
+  - water
   MaxCardsAmount: 10
   Hand: []
   CurrentTier: 1

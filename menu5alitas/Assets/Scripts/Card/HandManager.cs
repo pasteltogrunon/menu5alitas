@@ -8,7 +8,7 @@ public class HandManager : MonoBehaviour
 
     private GameManager gameManager;
 
-    [SerializeField] uint StartingCardsAmount = 5;
+    [SerializeField] string[] startingCardsIds;
     [SerializeField] uint MaxCardsAmount = 10;
 
     public List<Card> Hand = new List<Card>();
@@ -127,10 +127,16 @@ public class HandManager : MonoBehaviour
 
     private void AddStartingHand()
     {
-        for (int i = 0; i < StartingCardsAmount; i++)
+        /*for (int i = 0; i < StartingCardsAmount; i++)
         {
             AddRandomCard();
+        }*/
+
+        foreach(string id in startingCardsIds)
+        {
+            Hand.Add(Instantiate(cardCollection.GetCardPrefab(id, CurrentTier), transform).GetComponent<Card>());
         }
+
         recomputeHandPositions();
     }
 

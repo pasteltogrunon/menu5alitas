@@ -24,7 +24,7 @@ public class ResourceManager : MonoBehaviour
         set
         {
             //Preparado para cambiar la UI cuando haga falta
-            _happiness = value;
+            _happiness = Mathf.Clamp(value, 0, 100);
             updateUI();
         }
     }
