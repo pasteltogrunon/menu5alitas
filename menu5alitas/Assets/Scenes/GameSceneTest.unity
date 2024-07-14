@@ -2873,6 +2873,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 19874b30add8e06429542c96bd4a4430, type: 2}
   - {fileID: 11400000, guid: 883544d3c46e4e541827e80a8f84d459, type: 2}
   - {fileID: 11400000, guid: d628bb9d32ebcf74f9b7f99297562fb4, type: 2}
+  newCatastropheSound: {fileID: 8300000, guid: 48f303babf87f654c8a7db5fded3faaf, type: 3}
 --- !u!1 &820159252
 GameObject:
   m_ObjectHideFlags: 0
