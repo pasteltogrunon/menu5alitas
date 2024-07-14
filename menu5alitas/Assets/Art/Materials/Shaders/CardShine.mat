@@ -58,11 +58,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DissolvePhase: 0
     - _Extra: 0.05
     - _NoiseScale: 10
     - _SpeedAnisotropyScale: 0
     - _Threshold: 0.3
     m_Colors:
+    - _EdgeColor: {r: 30.266567, g: 13.0890875, b: 3.8547044, a: 0}
     - _NoiseSpeed: {r: 0.1, g: 0.2, b: 0, a: 0}
     - _ShineColor: {r: 0.041740835, g: 0.054991692, b: 0.13207549, a: 0}
   m_BuildTextureStacks: []

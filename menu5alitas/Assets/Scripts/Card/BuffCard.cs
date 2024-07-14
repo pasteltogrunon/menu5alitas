@@ -19,9 +19,7 @@ public class BuffCard : Card
 
             ResourceManager.Instance.Happiness += HappinessAmount;
 
-            //tile.GetComponent<SpriteRenderer>().sprite = sprite;
-            Destroy(gameObject);
-            DeleteFromHandManager();
+            endCard();
             return true;
         }
         return false;

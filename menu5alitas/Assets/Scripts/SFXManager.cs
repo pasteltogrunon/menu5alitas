@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SFXManager : MonoBehaviour
 {
     static SFXManager Instance;
 
     [SerializeField] GameObject audioSourcePrefab;
+
+    [SerializeField] AudioMixerGroup normal;
 
     static List<GameObject> audioSourcePool = new List<GameObject>();
 
@@ -15,18 +18,32 @@ public class SFXManager : MonoBehaviour
         Instance = this;
     }
     
-    public static void PlaySound(AudioClip clip)
+
+
+    public static void PlaySound(AudioClip clip, AudioMixerGroup mixerGroup)
     {
         AudioSource source = PoolAudioSource();
 
         source.PlayOneShot(clip);
 
+        source.outputAudioMixerGroup = mixerGroup;
+
         Instance.StartCoroutine(Instance.returnSourceToPool(clip.length + 1, source));
+    }
+
+    public static void PlaySound(AudioClip clip)
+    {
+        PlaySound(clip, Instance.normal);
     }
 
     public static void PlayRandomSoundFromArray(AudioClip[] clips)
     {
         PlaySound(clips[Random.Range(0, clips.Length)]);
+    }
+
+    public static void PlayRandomSoundFromArray(AudioClip[] clips, AudioMixerGroup mixerGroup)
+    {
+        PlaySound(clips[Random.Range(0, clips.Length)], mixerGroup);
     }
 
     static AudioSource PoolAudioSource()

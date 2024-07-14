@@ -132,4 +132,7 @@ MonoBehaviour:
       counterType: 1
   id: telecom
   tier: 1
+  happinessPerTurn: 0
+  requiresEnergy: 0
   radius: 3
+  unlockTilesSound: {fileID: 8300000, guid: 30bb4fd33e540144984441db826f2807, type: 3}
