@@ -10,6 +10,9 @@ public class Tile : MonoBehaviour
 
     public int energyLevel = 0;
 
+    [SerializeField] Material lockedMat;
+    [SerializeField] Material unlockedMat;
+
     private bool _unlocked = false;
     public bool Unlocked
     {
@@ -54,12 +57,12 @@ public class Tile : MonoBehaviour
 
     void unlock()
     {
-        GetComponent<SpriteRenderer>().color = Color.white;
+        GetComponent<SpriteRenderer>().material = unlockedMat;
     }
 
     void relock()
     {
-        GetComponent<SpriteRenderer>().color = Color.gray;
+        GetComponent<SpriteRenderer>().material = lockedMat;
     }
 
     //Returns 0 if cannot place, else returns the price reduction factor

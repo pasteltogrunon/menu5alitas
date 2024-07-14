@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f7d83e60557f60d44830ca6e6865dbf8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,3 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uvCoords: {x: 0, y: 0}
   building: {fileID: 0}
+  energyLevel: 0
+  lockedMat: {fileID: 2100000, guid: f7d83e60557f60d44830ca6e6865dbf8, type: 2}
+  unlockedMat: {fileID: 2100000, guid: 8c21c2a1c1651414489587f578d7722e, type: 2}

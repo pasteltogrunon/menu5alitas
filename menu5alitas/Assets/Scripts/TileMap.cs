@@ -138,10 +138,19 @@ public class TileMap : MonoBehaviour
     //Chequea en que punto del mapa hace contacto el mouse (lanzando un raycast)
     void hoverMap()
     {
-        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo, 100, planeLayer);
-        Tile closestTile = GetClosestTile(new Vector2(hitInfo.point.x, hitInfo.point.y));
-        mapPosition = hitInfo.point;
-        SelectedTile = closestTile;
+        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hitInfo, 100, planeLayer))
+            if (hitInfo.collider.gameObject.CompareTag("TileMap"))
+            {
+                Tile closestTile = GetClosestTile(new Vector2(hitInfo.point.x, hitInfo.point.y));
+                mapPosition = hitInfo.point;
+                SelectedTile = closestTile;
+            }
+            else
+            {
+                Tile closestTile = null;
+                mapPosition = hitInfo.point;
+                SelectedTile = closestTile;
+            }
     }
 
     public void UpdateMap()

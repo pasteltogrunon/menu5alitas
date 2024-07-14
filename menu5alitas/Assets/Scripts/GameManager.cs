@@ -106,18 +106,22 @@ public class GameManager : MonoBehaviour
 
     private void ApplyEndEvents()
     {
+        ResourceCounterList cost = new ResourceCounterList(ResourceCounterType.Cost);
         switch (currentCatastrofe)
         {
             case HardBuff.TAXES_FROM_ABOVE:
-                resourceManager.storedResources.metalResourceCounter.amount -= 12;
+                cost.GetResourceCounterByResourceType(ResourceType.Metal).amount = 12;
+                resourceManager.subtractResources(cost);
                 return;
 
             case HardBuff.RATS_IN_FOOD:
-                resourceManager.storedResources.waterResourceCounter.amount -= 10;
+                cost.GetResourceCounterByResourceType(ResourceType.Water).amount = 10;
+                resourceManager.subtractResources(cost);
                 return;
 
             case HardBuff.PANDEMIC_INCOMING:
-                resourceManager.storedResources.workerResourceCounter.amount -= 8;
+                cost.GetResourceCounterByResourceType(ResourceType.Worker).amount = 8;
+                resourceManager.subtractResources(cost);
                 return;
 
             default:

@@ -10,7 +10,8 @@ public abstract class Card : MonoBehaviour
 
     bool isDragged = false;
 
-    Vector3 originPosition;
+    public Vector3 targetPosition;
+    public Quaternion targetRotation;
 
     public abstract bool tryPlayCard(Tile tile);
 
@@ -19,8 +20,12 @@ public abstract class Card : MonoBehaviour
     {
         if(isDragged)
         {
-            transform.position = TileMap.mapPosition + Vector3.back;
+            targetPosition = TileMap.mapPosition + Vector3.back;
+            targetRotation = Quaternion.identity;
         }
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Mathf.Clamp01(10.0f * Time.deltaTime));
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Mathf.Clamp01(10.0f * Time.deltaTime));
     }
 
 
@@ -40,13 +45,16 @@ public abstract class Card : MonoBehaviour
 
     public void startDrag()
     {
-        isDragged = true;
-        originPosition = transform.position;
+        if(HandManager.Instance.Hand.Contains(this))
+        {
+            isDragged = true;
+            DeleteFromHandManager();
+        }
     }
 
-    public void Select(Vector3 handPosition)
+    public void Select()
     {
-        originPosition = handPosition;
+        HandManager.Instance.addCardToHandByXPosition(this);
     }
 
     public void endDrag()
@@ -58,13 +66,18 @@ public abstract class Card : MonoBehaviour
             if(!tryPlayCard(TileMap.Instance.SelectedTile))
             {
                 if (transform)
-                    transform.position = originPosition;
+                {
+                    HandManager.Instance.addCardToHandByXPosition(this);
+                }
             }
         }
         else
         {
             if (transform)
-                transform.position = originPosition;
+            {
+                HandManager.Instance.addCardToHandByXPosition(this);
+            }
+
         }
     }
 
