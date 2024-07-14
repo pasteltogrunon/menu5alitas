@@ -5,31 +5,41 @@ using UnityEngine;
 public class TelecomBuidling : Building
 {
     [SerializeField] int radius = 2;
+    [SerializeField] AudioClip unlockTilesSound;
 
     public override void onPlace(Tile tile)
     {
         base.onPlace(tile);
 
-        Vector2Int center = tile.uvCoords;
+        StartCoroutine(UnlockTiles(tile.uvCoords));
+    }
 
-        for (int i = -radius; i < 0; i++)
+    IEnumerator UnlockTiles(Vector2Int center)
+    {
+        for(int r = 1; r <= radius; r++)
         {
-            for (int j = -radius + Mathf.Abs(i); j <= radius; j++)
+            for (int i = -r; i < 0; i++)
             {
-                Tile neighbor = TileMap.Instance.GetTile(center.x + i, center.y + j);
-                if (neighbor)
-                    neighbor.Unlocked = true;
+                for (int j = -r + Mathf.Abs(i); j <= r; j++)
+                {
+                    Tile neighbor = TileMap.Instance.GetTile(center.x + i, center.y + j);
+                    if (neighbor)
+                        neighbor.Unlocked = true;
+                }
             }
-        }
 
-        for (int i = 0; i <= radius; i++)
-        {
-            for (int j = -radius; j <= radius - Mathf.Abs(i); j++)
+            for (int i = 0; i <= r; i++)
             {
-                Tile neighbor = TileMap.Instance.GetTile(center.x + i, center.y + j);
-                if (neighbor)
-                    neighbor.Unlocked = true;
+                for (int j = -r; j <= r - Mathf.Abs(i); j++)
+                {
+                    Tile neighbor = TileMap.Instance.GetTile(center.x + i, center.y + j);
+                    if (neighbor)
+                        neighbor.Unlocked = true;
+                }
             }
+
+            SFXManager.PlaySound(unlockTilesSound);
+            yield return new WaitForSeconds(0.7f);
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class HandManager : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class HandManager : MonoBehaviour
 
                 if(value != null && value.hoverCooldown <= 0)
                 {
-                    SFXManager.PlayRandomSoundFromArray(hoverSounds);
+                    SFXManager.PlayRandomSoundFromArray(hoverSounds, bajito);
                     _hoveredCard = value;
 
                 }
@@ -61,6 +62,8 @@ public class HandManager : MonoBehaviour
     [SerializeField] AudioClip cardDragging;
     [SerializeField] AudioClip[] cardAppearingSounds;
     [SerializeField] AudioClip[] hoverSounds;
+
+    [SerializeField] AudioMixerGroup bajito;
 
     [SerializeField] LayerMask cardLayer;
 
@@ -144,7 +147,7 @@ public class HandManager : MonoBehaviour
     {
         if (Hand.Count >= MaxCardsAmount) return;
 
-        SpawnCardChoice();
+        StartCoroutine(SpawnCardChoice());
         //AddRandomCard();
     }
 
@@ -194,29 +197,36 @@ public class HandManager : MonoBehaviour
         return card.targetPosition;
     }
 
-    private void SpawnCardChoice()
+    private IEnumerator SpawnCardChoice()
     {
         isChoosingCard = true;
 
-        SFXManager.PlayRandomSoundFromArray(cardAppearingSounds);
 
         if(gameManager.GetCurrentCatastrofeId() == HardBuff.PESIMISM)
         {
-            choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 3, Quaternion.identity, transform);
-            choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 3, Quaternion.identity, transform);
+            choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 10, Quaternion.identity, transform);
+            choosingCards.CardLeft.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 3.5f + Vector3.left * 1f;
+            SFXManager.PlayRandomSoundFromArray(cardAppearingSounds);
+            yield return new WaitForSeconds(0.3f);
+            choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 10, Quaternion.identity, transform);
+            choosingCards.CardRight.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 3.5f + Vector3.right * 1f;
+            SFXManager.PlayRandomSoundFromArray(cardAppearingSounds);
 
-            choosingCards.CardLeft.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 2 + Vector3.left * 0.75f;
-            choosingCards.CardRight.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 2 + Vector3.right * 0.75f;
         }
         else
         {
-            choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 3, Quaternion.identity, transform);
-            choosingCards.CardCenter = Instantiate(GetRandomCard(), transform.position + Vector3.up * 3, Quaternion.identity, transform);
-            choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 3, Quaternion.identity, transform);
+            choosingCards.CardLeft = Instantiate(GetRandomCard(), transform.position + Vector3.up * 10, Quaternion.identity, transform);
+            choosingCards.CardLeft.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 3.5f + Vector3.left * 2f;
+            SFXManager.PlayRandomSoundFromArray(cardAppearingSounds);
+            yield return new WaitForSeconds(0.3f);
+            choosingCards.CardCenter = Instantiate(GetRandomCard(), transform.position + Vector3.up * 10, Quaternion.identity, transform);
+            choosingCards.CardCenter.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 3.5f;
+            SFXManager.PlayRandomSoundFromArray(cardAppearingSounds);
+            yield return new WaitForSeconds(0.3f);
+            choosingCards.CardRight = Instantiate(GetRandomCard(), transform.position + Vector3.up * 10, Quaternion.identity, transform);
+            choosingCards.CardRight.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 3.5f + Vector3.right * 2f;
+            SFXManager.PlayRandomSoundFromArray(cardAppearingSounds);
 
-            choosingCards.CardLeft.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 2 + Vector3.left * 1.25f;
-            choosingCards.CardCenter.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 2;
-            choosingCards.CardRight.GetComponent<Card>().targetPosition = transform.position + Vector3.up * 2 + Vector3.right * 1.25f;
         }
     }
 
@@ -238,7 +248,7 @@ public class HandManager : MonoBehaviour
         recomputeHandPositions();
     }
 
-    void recomputeHandPositions()
+    public void recomputeHandPositions()
     {
         var c = 0;
         foreach (Card handCard in Hand)
@@ -252,17 +262,17 @@ public class HandManager : MonoBehaviour
 
     Vector3 cardPositionOffset(int cardNum)
     {
-        float cardInHandOffset = 4.0f/Hand.Count;
-        float x = (2 * cardNum + 1) * cardInHandOffset - 4;
-        return Vector3.left * x + (Vector3.up * (Mathf.Sqrt(1 - Mathf.Pow(x / 4, 2)) - 0.6f));
+        float cardInHandOffset = 5.0f/Hand.Count;
+        float x = (2 * cardNum + 1) * cardInHandOffset - 5;
+        return Vector3.left * x + (Vector3.up * (Mathf.Sqrt(1 - Mathf.Pow(x / 5, 2)) - 0.4f));
     }
 
     float cardAngleInHand(int cardNum)
     {
-        float cardInHandOffset = 4.0f / Hand.Count;
-        float x = (2 * cardNum + 1) * cardInHandOffset - 4;
+        float cardInHandOffset = 5.0f / Hand.Count;
+        float x = (2 * cardNum + 1) * cardInHandOffset - 5;
 
-        return 5 * x;
+        return 4 * x;
     }
 
     public void addCardToHandByXPosition(Card card)

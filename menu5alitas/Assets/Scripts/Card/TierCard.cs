@@ -13,9 +13,7 @@ public class TierCard : Card
             HandManager.Instance.CurrentTier = Mathf.Clamp(tier, 1, 3);
             HandManager.Instance.RemoveCardFromDeck("tier" + tier);
 
-            //tile.GetComponent<SpriteRenderer>().sprite = sprite;
-            Destroy(gameObject);
-            DeleteFromHandManager();
+            endCard();
             return true;
         }
         return false;

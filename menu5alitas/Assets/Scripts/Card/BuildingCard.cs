@@ -28,9 +28,7 @@ public class BuildingCard : Card
                 TileMap.Instance.UpdateMap();
 
 
-                //tile.GetComponent<SpriteRenderer>().sprite = sprite;
-                Destroy(gameObject);
-                DeleteFromHandManager();
+                endCard();
                 return true;
             }
             else
