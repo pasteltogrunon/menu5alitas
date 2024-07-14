@@ -39,11 +39,28 @@ public class HandManager : MonoBehaviour
             if (value != _hoveredCard)
             {
                 _hoveredCard?.endHover();
-                _hoveredCard = value;
+
+                if(value != null && value.hoverCooldown <= 0)
+                {
+                    SFXManager.PlayRandomSoundFromArray(hoverSounds);
+                    _hoveredCard = value;
+
+                }
+                else
+                {
+                    _hoveredCard = null;
+
+                }
+
                 _hoveredCard?.startHover();
             }
         }
     }
+
+    [SerializeField] AudioClip cardPickingSound;
+    [SerializeField] AudioClip cardDragging;
+    [SerializeField] AudioClip[] cardAppearingSounds;
+    [SerializeField] AudioClip[] hoverSounds;
 
     [SerializeField] LayerMask cardLayer;
 
@@ -101,6 +118,8 @@ public class HandManager : MonoBehaviour
                 else
                 {
                     HoveredCard?.startDrag();
+                    if (HoveredCard != null)
+                        SFXManager.PlaySound(cardDragging);
                 }
             }
         }
@@ -164,12 +183,16 @@ public class HandManager : MonoBehaviour
 
         isChoosingCard = false;
 
+        SFXManager.PlaySound(cardPickingSound);
+
         return card.targetPosition;
     }
 
     private void SpawnCardChoice()
     {
         isChoosingCard = true;
+
+        SFXManager.PlayRandomSoundFromArray(cardAppearingSounds);
 
         if(gameManager.GetCurrentCatastrofeId() == HardBuff.PESIMISM)
         {

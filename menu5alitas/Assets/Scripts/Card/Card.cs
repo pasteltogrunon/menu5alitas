@@ -13,6 +13,10 @@ public abstract class Card : MonoBehaviour
     public Vector3 targetPosition;
     public Quaternion targetRotation;
 
+    public float hoverCooldown;
+
+    [SerializeField] AudioClip cardPlaySound;
+
     public abstract bool tryPlayCard(Tile tile);
 
     //Se utiliza el update si está siendo drageado
@@ -23,6 +27,8 @@ public abstract class Card : MonoBehaviour
             targetPosition = TileMap.mapPosition + Vector3.back;
             targetRotation = Quaternion.identity;
         }
+        if (hoverCooldown > 0)
+            hoverCooldown -= Time.deltaTime;
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, Mathf.Clamp01(10.0f * Time.deltaTime));
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Mathf.Clamp01(10.0f * Time.deltaTime));
@@ -33,11 +39,15 @@ public abstract class Card : MonoBehaviour
 
     public void startHover()
     {
-
+        targetPosition = targetPosition + 0.1f * Vector3.up;
+        transform.localScale = 1.2f * Vector3.one;
     }
 
     public void endHover()
     {
+        targetPosition = targetPosition - 0.1f * Vector3.up;
+        hoverCooldown = 0.2f;
+        transform.localScale = Vector3.one;
 
     }
 
@@ -68,6 +78,13 @@ public abstract class Card : MonoBehaviour
                 if (transform)
                 {
                     HandManager.Instance.addCardToHandByXPosition(this);
+                }
+            }
+            else
+            {
+                if(cardPlaySound != null)
+                {
+                    SFXManager.PlaySound(cardPlaySound);
                 }
             }
         }

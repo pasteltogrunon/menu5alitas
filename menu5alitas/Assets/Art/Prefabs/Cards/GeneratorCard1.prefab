@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2755717430809388580}
   - component: {fileID: 8681235923818695928}
   - component: {fileID: 1030098032199724184}
-  - component: {fileID: 7694809272243228910}
+  - component: {fileID: -8913869280561313080}
   m_Layer: 6
   m_Name: GeneratorCard1
   m_TagString: Untagged
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8d2966accee19a347a3aedb891c5a913, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d59caa1b38e865c46ad4a06e659da107, type: 3}
   m_Color: {r: 0.29071733, g: 0.38739908, b: 0.4433962, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,9 +117,13 @@ MonoBehaviour:
       amount: 0
       counterType: 1
   sprite: {fileID: 21300000, guid: 8d2966accee19a347a3aedb891c5a913, type: 3}
+  targetPosition: {x: 0, y: 0, z: 0}
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  hoverCooldown: 0
+  cardPlaySound: {fileID: 8300000, guid: ffb043a891c2fc142971b6a61b10da50, type: 3}
   buildingPrefab: {fileID: 5384427012566192442, guid: f0d3294150ce0e94ab7eabb4213e6eea, type: 3}
---- !u!64 &7694809272243228910
-MeshCollider:
+--- !u!65 &-8913869280561313080
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -136,10 +140,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 3
+  m_Size: {x: 1.1573334, y: 1.6173333, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8465876216638731710
 GameObject:
   m_ObjectHideFlags: 0

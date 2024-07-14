@@ -790,6 +790,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &225991833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 225991835}
+  - component: {fileID: 225991834}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &225991834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225991833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad226da33ca64c4e9566201d6df4122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSourcePrefab: {fileID: 518878675853420248, guid: 6a0bba6b65408a0448f46ab1f6ab7d42, type: 3}
+--- !u!4 &225991835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225991833}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.10458678, y: -7.999519, z: -13.997246}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240085116
 GameObject:
   m_ObjectHideFlags: 0
@@ -4263,6 +4308,18 @@ MonoBehaviour:
   cardCollection: {fileID: 11400000, guid: a72ebec369c704641801782b1eeb6c3b, type: 2}
   isInGolemScreen: 0
   isChoosingCard: 0
+  cardPickingSound: {fileID: 8300000, guid: af21a43615523c64699655e8128a0dde, type: 3}
+  cardDragging: {fileID: 8300000, guid: 4881fedf1be17964ab2a85a2556c161d, type: 3}
+  cardAppearingSounds:
+  - {fileID: 8300000, guid: 4cc64dbcea888674ab003ded6cce19fc, type: 3}
+  - {fileID: 8300000, guid: 8469e584c9898a9489b804b4435708c0, type: 3}
+  - {fileID: 8300000, guid: 95561ca600505f646a59c000f082e5a0, type: 3}
+  - {fileID: 8300000, guid: 242399741af44ac469ebab608801e9c7, type: 3}
+  - {fileID: 8300000, guid: 4e5f725c6cdc0e14abe1d977913f7931, type: 3}
+  hoverSounds:
+  - {fileID: 8300000, guid: b36c7918205abd74599c48533d4f9438, type: 3}
+  - {fileID: 8300000, guid: 185fcdcfb8dde42478e8d84d2fcc6d3d, type: 3}
+  - {fileID: 8300000, guid: 9f937bf6eb4a4834d94e6661c449c6eb, type: 3}
   cardLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -6347,3 +6404,4 @@ SceneRoots:
   - {fileID: 1598422806}
   - {fileID: 1372725197}
   - {fileID: 567167859}
+  - {fileID: 225991835}
