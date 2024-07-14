@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     public uint turn = 1;
     public uint turnsPerEvent = 5;
-    public uint turnsPerGolemScreen = 20;
+    public uint turnsPerGolemScreen = 10;
 
     public uint turnTier2 = 10;
     public uint turnTier3 = 25;
@@ -105,7 +108,7 @@ public class GameManager : MonoBehaviour
 
     public float GolemScore(ResourceCounterList spentResources)
     {
-        uint golemPiece = turn % turnsPerGolemScreen;
+        uint golemPiece = turn / 10 % turnsPerGolemScreen;
 
         resourceManager.subtractResources(spentResources);
         
@@ -163,7 +166,7 @@ public class GameManager : MonoBehaviour
         if (workers > cost_workers) workers = cost_workers;
         if (science > cost_science) science = cost_science;
 
-        float rating = Mathf.Clamp(5 * (weight_metal * metal/cost_metal + weight_water * water/cost_water+ weight_workers * workers/cost_workers + weight_science * science/cost_science),0,5);
+        float rating = 5 * (weight_metal * metal/cost_metal + weight_water * water/cost_water+ weight_workers * workers/cost_workers + weight_science * science/cost_science);
 
         ratings[golemPiece] = rating;
 
@@ -176,7 +179,7 @@ public class GameManager : MonoBehaviour
             finalRating /= 5;
         }
 
-        return rating;
+        return MathF.Round(rating, 2);
     }
 
     private void ApplyEndEvents()
