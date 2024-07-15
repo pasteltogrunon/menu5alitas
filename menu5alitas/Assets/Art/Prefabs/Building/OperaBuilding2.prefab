@@ -132,5 +132,5 @@ MonoBehaviour:
       counterType: 1
   id: opera
   tier: 2
-  happinessPerTurn: 7
+  happinessPerTurn: 6
   requiresEnergy: 0
