@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: -waterprod
   m_EditorClassIdentifier: 
   resource: 1
-  factor: 0.75
+  factor: 0.2
   counterType: 0
   turnsLeft: 5
+  HardBuffId: 0

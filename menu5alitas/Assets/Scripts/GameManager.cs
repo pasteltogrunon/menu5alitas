@@ -142,9 +142,9 @@ public class GameManager : MonoBehaviour
                 cost_science = 20;
                 break;
             case 2:
-                cost_metal = 20;
-                cost_water = 20;
-                cost_workers = 20;
+                cost_metal = 25;
+                cost_water = 25;
+                cost_workers = 25;
                 cost_science = 40;
                 break;
             case 3:

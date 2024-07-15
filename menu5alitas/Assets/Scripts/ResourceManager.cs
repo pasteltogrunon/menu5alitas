@@ -13,7 +13,7 @@ public class ResourceManager : MonoBehaviour
     public ResourceCounterList resourceProductionPerTurn = new ResourceCounterList(ResourceCounterType.AlreadyAdjusted);
     public ResourceCounterList resourceCostPerEvent = new ResourceCounterList(ResourceCounterType.AlreadyAdjusted);
 
-    private List<Buff> buffs = new List<Buff>();
+    public List<Buff> buffs = new List<Buff>();
 
     public int HappinessPerTurn = 0;
 
@@ -112,7 +112,7 @@ public class ResourceManager : MonoBehaviour
         buffs.Add(buff);
     }
 
-    //Ajusta la cantidad segun si es coste o produccion, dependerá de los eventos
+    //Ajusta la cantidad segun si es coste o produccion, dependerï¿½ de los eventos
     public int ResourceAmountAdjustedFromBuffs(ResourceCounter resourceCounter)
     {
         if (resourceCounter == null)
@@ -121,6 +121,7 @@ public class ResourceManager : MonoBehaviour
         if (resourceCounter.counterType == ResourceCounterType.AlreadyAdjusted)
             return resourceCounter.amount;
 
+        List<Buff> buffsCopy = new List<Buff>(buffs);
         foreach (Buff buff in buffsCopy)
         {
             if (buff.counterType == resourceCounter.counterType && buff.resource == resourceCounter.resource)

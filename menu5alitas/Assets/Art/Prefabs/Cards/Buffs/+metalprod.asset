@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: +metalprod
   m_EditorClassIdentifier: 
   resource: 0
-  factor: 1.5
+  factor: 2
   counterType: 0
   turnsLeft: 5
+  HardBuffId: 0
