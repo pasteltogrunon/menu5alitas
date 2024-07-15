@@ -65,6 +65,16 @@ public class ResourceManager : MonoBehaviour
 
         Happiness = Mathf.Clamp(Happiness + HappinessPerTurn, 0, 100);
 
+        List<Buff> buffsCopy = new List<Buff>(buffs);
+        foreach (Buff buff in buffsCopy)
+        {
+            buff.turnsLeft--;
+            if (buff.turnsLeft <= 0)
+            {
+                buffs.Remove(buff);
+            }
+        }
+
     }
 
     public void ApplyWorldEvent(Buff b)
@@ -111,23 +121,12 @@ public class ResourceManager : MonoBehaviour
         if (resourceCounter.counterType == ResourceCounterType.AlreadyAdjusted)
             return resourceCounter.amount;
 
-        List<Buff> buffsCopy = new List<Buff>(buffs);
         foreach (Buff buff in buffsCopy)
         {
-            if (buff.turnsLeft > 0)
-            {
-                if (buff.counterType == resourceCounter.counterType && buff.resource == resourceCounter.resource)
-                    resourceCounter.amount = Mathf.CeilToInt(buff.factor * resourceCounter.amount);
+            if (buff.counterType == resourceCounter.counterType && buff.resource == resourceCounter.resource)
+                resourceCounter.amount = Mathf.CeilToInt(buff.factor * resourceCounter.amount);
 
-                buff.turnsLeft--;
-                return resourceCounter.amount;
-            }
-            else
-            {
-                buffs.Remove(buff);
-            }
         }
-
         return resourceCounter.amount;
     }
 }
