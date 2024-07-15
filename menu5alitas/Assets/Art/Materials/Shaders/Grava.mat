@@ -48,8 +48,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _EnergyPhase: 0
+    - _HoverPhase: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
+    - _EnergyColor: {r: 0.091580644, g: 0.12870091, b: 0.13207549, a: 0}
+    - _HoverColor: {r: 95.8745, g: 87.08118, b: 54.72083, a: 0}
     - _Tiling: {r: 0.3, g: 0.3, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8478915717642991817

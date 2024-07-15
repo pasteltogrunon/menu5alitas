@@ -22,6 +22,8 @@ public class BuffCard : Card
             endCard();
             return true;
         }
+        SFXManager.PlaySound(HandManager.Instance.cannotPlayCardSound);
+
         return false;
     }
 }
