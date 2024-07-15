@@ -18,7 +18,10 @@ public class GeneratorBuilding : Building
             {
                 Tile neighbor = TileMap.Instance.GetTile(center.x + i, center.y + j);
                 if (neighbor)
+                {
                     neighbor.energyLevel = tier;
+                    neighbor.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 1, 1);
+                }
             }
         }
 
@@ -28,7 +31,10 @@ public class GeneratorBuilding : Building
             {
                 Tile neighbor = TileMap.Instance.GetTile(center.x + i, center.y + j);
                 if (neighbor)
+                {
                     neighbor.energyLevel = tier;
+                    neighbor.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 1, 1);
+                }
             }
         }
     }

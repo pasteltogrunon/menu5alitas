@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void NextTurn()
+    public void NextTurn()
     {
         if (handManager.isChoosingCard) return;
 
@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
 
         float rating = 5 * (weight_metal * metal/cost_metal + weight_water * water/cost_water+ weight_workers * workers/cost_workers + weight_science * science/cost_science);
 
-        ratings[golemPiece] = rating;
+        ratings[golemPiece-1] = rating;
 
         if (golemPiece==5) 
         {

@@ -41,4 +41,15 @@ public class BuildingCard : Card
             return false;
         }
     }
+
+    public override ResourceCounterList getCost()
+    {
+        if(TileMap.Instance.SelectedTile != null)
+        {
+            float factor = TileMap.Instance.SelectedTile.canPlace(buildingPrefab.GetComponent<Building>());
+            if(factor != 0)
+                return base.getCost() * TileMap.Instance.SelectedTile.canPlace(buildingPrefab.GetComponent<Building>());
+        }
+        return base.getCost();
+    }
 }

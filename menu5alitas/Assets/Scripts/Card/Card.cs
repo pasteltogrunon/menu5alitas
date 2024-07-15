@@ -28,8 +28,10 @@ public abstract class Card : MonoBehaviour
 
         if(isDragged)
         {
-            targetPosition = TileMap.mapPosition + Vector3.back;
+            targetPosition = TileMap.mapPosition + 2*Vector3.back;
             targetRotation = Quaternion.identity;
+
+            UIManager.Instance.updateCostText(getCost());
         }
 
         if(isHovered)
@@ -50,16 +52,16 @@ public abstract class Card : MonoBehaviour
     {
         isHovered = true;
 
-        targetPosition = targetPosition + 1.5f * Vector3.up + 0.5f * Vector3.back;
+        targetPosition = targetPosition + 1f * Vector3.up + 0.5f * Vector3.back;
         transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 1;
-        transform.localScale = 3f * Vector3.one;
+        transform.localScale = 2.5f * Vector3.one;
     }
 
     public void endHover()
     {
         isHovered = false;
 
-        targetPosition = targetPosition - 1.5f * Vector3.up - 0.5f * Vector3.back;
+        targetPosition = targetPosition - 1f * Vector3.up - 0.5f * Vector3.back;
         transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 0;
         hoverCooldown = 0.2f;
         transform.localScale = Vector3.one;
@@ -135,6 +137,11 @@ public abstract class Card : MonoBehaviour
         mat.SetFloat("_DissolvePhase", 0);
         DeleteFromHandManager();
         Destroy(gameObject);
+    }
+
+    public virtual ResourceCounterList getCost()
+    {
+        return cost;
     }
 
     protected void DeleteFromHandManager()

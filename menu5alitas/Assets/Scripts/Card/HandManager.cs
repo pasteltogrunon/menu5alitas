@@ -45,6 +45,7 @@ public class HandManager : MonoBehaviour
                 {
                     SFXManager.PlayRandomSoundFromArray(hoverSounds, bajito);
                     _hoveredCard = value;
+                    UIManager.Instance.updateCostText(_hoveredCard.getCost());
 
                 }
                 else
@@ -262,15 +263,15 @@ public class HandManager : MonoBehaviour
 
     Vector3 cardPositionOffset(int cardNum)
     {
-        float cardInHandOffset = 5.0f/Hand.Count;
-        float x = (2 * cardNum + 1) * cardInHandOffset - 5;
-        return Vector3.left * x + (Vector3.up * (Mathf.Sqrt(1 - Mathf.Pow(x / 5, 2)) - 0.4f));
+        float cardInHandOffset = 4.0f/Hand.Count;
+        float x = (2 * cardNum + 1) * cardInHandOffset - 4;
+        return Vector3.left * x + (Vector3.up * (Mathf.Sqrt(1 - Mathf.Pow(x / 4, 2)) - 0.4f));
     }
 
     float cardAngleInHand(int cardNum)
     {
-        float cardInHandOffset = 5.0f / Hand.Count;
-        float x = (2 * cardNum + 1) * cardInHandOffset - 5;
+        float cardInHandOffset = 4.0f / Hand.Count;
+        float x = (2 * cardNum + 1) * cardInHandOffset - 4;
 
         return 4 * x;
     }
