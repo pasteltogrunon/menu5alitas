@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,9 +9,10 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [SerializeField] TMP_Text storageText;
-    [SerializeField] TMP_Text productionText;
-    [SerializeField] TMP_Text costText;
+    [SerializeField] TMP_Text[] storageText;
+    [SerializeField] TMP_Text[] productionText;
+    [SerializeField] TMP_Text[] costText;
+    [SerializeField] TMP_Text[] cardCostText;
     [SerializeField] Image happinessBar;
     [SerializeField] TMP_Text happinessFactorText;
 
@@ -32,23 +34,38 @@ public class UIManager : MonoBehaviour
 
     public void UpdateResourcesUI(ResourceCounterList resourcesStorage, ResourceCounterList production, ResourceCounterList cost, float happiness)
     {
-        storageText.text = "Metal: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Metal) +
-            "\nWater: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Water) +
-            "\nWorker: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Worker) +
-            "\nScience: " + resourcesStorage.AdjustedAmountOfResource(ResourceType.Science);
+        int i = 0;
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            storageText[i].text = formatString(resourcesStorage.AdjustedAmountOfResource(resource));
+            i++;
+        }
 
-        productionText.text = "Metal: " + production.AdjustedAmountOfResource(ResourceType.Metal) +
-            "\nWater: " + production.AdjustedAmountOfResource(ResourceType.Water) +
-            "\nWorker: " + production.AdjustedAmountOfResource(ResourceType.Worker) +
-            "\nScience: " + production.AdjustedAmountOfResource(ResourceType.Science);
+        i = 0;
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            productionText[i].text = "+" + formatString(production.AdjustedAmountOfResource(resource));
+            i++;
+        }
 
-        costText.text = "Metal: " + cost.AdjustedAmountOfResource(ResourceType.Metal) +
-            "\nWater: " + cost.AdjustedAmountOfResource(ResourceType.Water) +
-            "\nWorker: " + cost.AdjustedAmountOfResource(ResourceType.Worker) +
-            "\nScience: " + cost.AdjustedAmountOfResource(ResourceType.Science);
-
+        i = 0;
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            costText[i].text = "-" + formatString(cost.AdjustedAmountOfResource(resource));
+            i++;
+        }
         happinessBar.fillAmount = happiness / 100;
         happinessFactorText.text = "x" + Mathf.Pow(happiness / 100, 2);
+    }
+
+    public string formatString(int amount)
+    {
+        if(amount >= 1000)
+        {
+            return String.Format("{0:0.00}", (float)amount / 1000)  + "K";
+        }
+
+        return amount.ToString();
     }
 
     public void updateTurnUI(uint turn)
@@ -59,6 +76,23 @@ public class UIManager : MonoBehaviour
     public void updateCatastropheText(string text)
     {
         catastropheText.text = text;
+    }
+
+    public void updateCostText(ResourceCounterList cost)
+    {
+        int i = 0;
+        foreach (ResourceType resource in Enum.GetValues(typeof(ResourceType)))
+        {
+            cardCostText[i].text = "-" + formatString(cost.AdjustedAmountOfResource(resource));
+
+            if (cost.AdjustedAmountOfResource(resource) > ResourceManager.Instance.storedResources.AdjustedAmountOfResource(resource))
+                cardCostText[i].color = Color.red;
+            else
+                cardCostText[i].color = Color.white;
+
+            i++;
+        }
+        
     }
 
 

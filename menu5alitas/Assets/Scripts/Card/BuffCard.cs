@@ -15,9 +15,9 @@ public class BuffCard : Card
             foreach (Buff buff in buffs)
                 ResourceManager.Instance.addBuff(Instantiate(buff));
 
-            TileMap.Instance.UpdateMap();
-
             ResourceManager.Instance.Happiness += HappinessAmount;
+
+            TileMap.Instance.UpdateMap();
 
             endCard();
             return true;
