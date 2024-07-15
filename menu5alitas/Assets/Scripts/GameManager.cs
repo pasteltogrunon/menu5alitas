@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour
         if(finalRating!=0)
         {
             isGameEnded = true;
-            uiManager.endGameByGolem(finalRating >= 4.25f);
+            uiManager.endGameByGolem(finalRating >= 4.1f);
         }
     }
 
