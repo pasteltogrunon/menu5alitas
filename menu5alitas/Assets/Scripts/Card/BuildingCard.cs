@@ -10,7 +10,10 @@ public class BuildingCard : Card
     public override bool tryPlayCard(Tile tile)
     {
         if(GameManager.Instance.GetCurrentCatastrofeId() == HardBuff.OVERLOAD)
+        {
+            SFXManager.PlaySound(GameManager.Instance.overloadSound);
             return false;
+        }
 
         float canPlaceFactor = tile.canPlace(buildingPrefab.GetComponent<Building>());
         if(canPlaceFactor != 0)
@@ -33,11 +36,13 @@ public class BuildingCard : Card
             }
             else
             {
+                SFXManager.PlaySound(HandManager.Instance.cannotPlayCardSound);
                 return false;
             }
         }
         else
         {
+            SFXManager.PlaySound(HandManager.Instance.cannotPlayCardSound);
             return false;
         }
     }

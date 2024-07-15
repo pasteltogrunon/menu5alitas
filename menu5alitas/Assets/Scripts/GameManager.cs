@@ -28,6 +28,10 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
 
     [SerializeField] AudioClip newCatastropheSound;
+    [SerializeField] AudioClip picketSound;
+    public AudioClip overloadSound;
+
+    bool isGameEnded = false;
 
     private void Awake()
     {
@@ -42,7 +46,7 @@ public class GameManager : MonoBehaviour
         uiManager = UIManager.Instance;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -53,6 +57,8 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
+        if (isGameEnded) return;
+
         if (handManager.isChoosingCard) return;
 
         turn++;
@@ -180,6 +186,24 @@ public class GameManager : MonoBehaviour
         }
 
         return MathF.Round(rating, 2);
+    }
+
+    public void endGameByPickets()
+    {
+        isGameEnded = true;
+        uiManager.endGameByPickets();
+
+        SFXManager.PlaySound(picketSound);
+    }
+
+    public void tryEndGameByGolem()
+    {
+        //Final rating computed
+        if(finalRating!=0)
+        {
+            isGameEnded = true;
+            uiManager.endGameByGolem(finalRating >= 4.25f);
+        }
     }
 
     private void ApplyEndEvents()

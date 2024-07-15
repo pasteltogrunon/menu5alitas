@@ -118,7 +118,7 @@ public abstract class Card : MonoBehaviour
         }
     }
 
-    protected void endCard()
+    public void endCard()
     {
         StartCoroutine(destroyCard());
     }
@@ -128,7 +128,10 @@ public abstract class Card : MonoBehaviour
         float time = 1.0f;
         GetComponent<Collider>().enabled = false;
         Material mat = transform.GetChild(0).GetComponent<SpriteRenderer>().material;
-        transform.GetChild(1).gameObject.SetActive(false);
+
+        if(transform.childCount > 1)
+            transform.GetChild(1).gameObject.SetActive(false);
+
         for(float t = 0; t < time; t+=Time.deltaTime)
         {
             mat.SetFloat("_DissolvePhase", t/time);

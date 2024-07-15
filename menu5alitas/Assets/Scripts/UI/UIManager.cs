@@ -25,6 +25,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text[] golemSliderTexts;
     [SerializeField] TMP_Text golemScoreText;
 
+    [SerializeField] GameObject winGolemScreen;
+    [SerializeField] TMP_Text winText;
+    [TextArea(3,10)] [SerializeField] string winString;
+    [SerializeField] GameObject defeatGolemScreen;
+    [SerializeField] TMP_Text defeatText;
+    [TextArea(3, 10)] [SerializeField] string defeatString;
+    [SerializeField] GameObject picketsScreen;
+    [SerializeField] TMP_Text picketText;
+    [TextArea(3, 10)] [SerializeField] string picketString;
+
     int[] spentResourcesAux = new int[4];
 
     private void Awake()
@@ -76,6 +86,18 @@ public class UIManager : MonoBehaviour
     public void updateCatastropheText(string text)
     {
         catastropheText.text = text;
+    }
+    
+    public void endGameByGolem(bool win)
+    {
+        (win ? winGolemScreen : defeatGolemScreen).SetActive(true);
+        StartCoroutine(showTextInTextbox(0.03f, (win ? winString : defeatString), (win ? winText : defeatText)));
+    }
+
+    public void endGameByPickets()
+    {
+        picketsScreen.SetActive(true);
+        StartCoroutine(showTextInTextbox(0.03f, picketString, picketText));
     }
 
     public void updateCostText(ResourceCounterList cost)
@@ -144,5 +166,16 @@ public class UIManager : MonoBehaviour
     public void EndGolemScreen()
     {
         HandManager.Instance.isInGolemScreen = false;
+    }
+
+    public IEnumerator showTextInTextbox(float interval, string text, TMP_Text textbox)
+    {
+        int character = 0;
+        while(textbox.text != text)
+        {
+            textbox.text = text.Substring(0, character);
+            yield return new WaitForSeconds(interval);
+            character++;
+        }
     }
 }

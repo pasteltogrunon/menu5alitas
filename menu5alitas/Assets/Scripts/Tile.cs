@@ -73,12 +73,12 @@ public class Tile : MonoBehaviour
 
     void unlock()
     {
-        GetComponent<SpriteRenderer>().material = unlockedMat;
+        changeMaterial(unlockedMat);
     }
 
     void relock()
     {
-        GetComponent<SpriteRenderer>().material = lockedMat;
+        changeMaterial(lockedMat);
     }
 
     //Returns 0 if cannot place, else returns the price reduction factor
@@ -120,5 +120,12 @@ public class Tile : MonoBehaviour
             return 0;
 
         return building.happinessPerTurn;
+    }
+
+    public void changeMaterial(Material mat)
+    {
+        float caca = GetComponent<SpriteRenderer>().material.GetFloat("_EnergyPhase");
+        GetComponent<SpriteRenderer>().material = mat;
+        GetComponent<SpriteRenderer>().material.SetFloat("_EnergyPhase", caca);
     }
 }

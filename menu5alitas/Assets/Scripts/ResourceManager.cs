@@ -26,6 +26,11 @@ public class ResourceManager : MonoBehaviour
             //Preparado para cambiar la UI cuando haga falta
             _happiness = Mathf.Clamp(value, 0, 100);
             updateUI();
+
+            if(_happiness == 0)
+            {
+                GameManager.Instance.endGameByPickets();
+            }
         }
     }
 

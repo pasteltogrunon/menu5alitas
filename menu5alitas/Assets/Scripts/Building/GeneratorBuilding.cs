@@ -20,7 +20,7 @@ public class GeneratorBuilding : Building
                 if (neighbor)
                 {
                     neighbor.energyLevel = tier;
-                    neighbor.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 1, 1);
+                    neighbor.GetComponent<SpriteRenderer>().material.SetFloat("_EnergyPhase", 1);
                 }
             }
         }
@@ -33,7 +33,7 @@ public class GeneratorBuilding : Building
                 if (neighbor)
                 {
                     neighbor.energyLevel = tier;
-                    neighbor.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 1, 1);
+                    neighbor.GetComponent<SpriteRenderer>().material.SetFloat("_EnergyPhase", 1);
                 }
             }
         }

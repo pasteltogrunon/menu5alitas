@@ -18,6 +18,7 @@ public class HandManager : MonoBehaviour
     Deck handDeck;
     [SerializeField] Deck handDeckReference;
     [SerializeField] Collection cardCollection;
+    public AudioClip cannotPlayCardSound;
 
     public bool isInGolemScreen = false;
     public bool isChoosingCard = false;
@@ -146,8 +147,6 @@ public class HandManager : MonoBehaviour
 
     public void StealCard()
     {
-        if (Hand.Count >= MaxCardsAmount) return;
-
         StartCoroutine(SpawnCardChoice());
         //AddRandomCard();
     }
@@ -167,19 +166,25 @@ public class HandManager : MonoBehaviour
         if (isLeft)
         {
             chosenCardPrefab = choosingCards.CardLeft;
-            Destroy(choosingCards.CardCenter);
-            Destroy(choosingCards.CardRight);
+
+            if(choosingCards.CardCenter != null)
+                choosingCards.CardCenter.GetComponent<Card>().endCard();
+            choosingCards.CardRight.GetComponent<Card>().endCard();
         }
         else if(isCenter)
         {
             chosenCardPrefab = choosingCards.CardCenter;
-            Destroy(choosingCards.CardLeft);
-            Destroy(choosingCards.CardRight);
-        }else if (isRight)
+
+            choosingCards.CardLeft.GetComponent<Card>().endCard();
+            choosingCards.CardRight.GetComponent<Card>().endCard();
+        }
+        else if (isRight)
         {
             chosenCardPrefab = choosingCards.CardRight;
-            Destroy(choosingCards.CardCenter);
-            Destroy(choosingCards.CardLeft);
+
+            if (choosingCards.CardCenter != null)
+                choosingCards.CardCenter.GetComponent<Card>().endCard();
+            choosingCards.CardLeft.GetComponent<Card>().endCard();
         }
         else
         {
@@ -278,9 +283,16 @@ public class HandManager : MonoBehaviour
 
     public void addCardToHandByXPosition(Card card)
     {
-        Hand.Add(card);
-        Hand.Sort(CompareCardPosition);
-        recomputeHandPositions();
+        if (Hand.Count >= MaxCardsAmount)
+        {
+            card.endCard();
+        }
+        else
+        {
+            Hand.Add(card);
+            Hand.Sort(CompareCardPosition);
+            recomputeHandPositions();
+        }
     }
 
     public void RemoveCardFromDeck(string id)
