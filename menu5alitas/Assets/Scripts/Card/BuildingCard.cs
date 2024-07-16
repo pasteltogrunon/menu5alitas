@@ -25,7 +25,7 @@ public class BuildingCard : Card
                     Destroy(tile.building.gameObject);
                 }
 
-                Building newBuilding = Instantiate(buildingPrefab, tile.transform).GetComponent<Building>();
+                Building newBuilding = Instantiate(buildingPrefab, tile.transform.position, Quaternion.Euler(180, 0, 0), tile.transform).GetComponent<Building>();
                 tile.building = newBuilding;
                 newBuilding.onPlace(tile);
                 TileMap.Instance.UpdateMap();

@@ -9,6 +9,11 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
+    [SerializeField] AnimationCurve curve;
+
+    [SerializeField] Sprite[] golemParts;
+    [SerializeField] Image golemPartImage;
+
     [SerializeField] TMP_Text[] storageText;
     [SerializeField] TMP_Text[] productionText;
     [SerializeField] TMP_Text[] costText;
@@ -17,6 +22,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text happinessFactorText;
 
     [SerializeField] TMP_Text catastropheText;
+    [SerializeField] TMP_Text catastropheCenterText;
+    [SerializeField] TMP_Text catastropheDescriptionText;
+    [SerializeField] TMP_Text turnsLeftText;
 
     [SerializeField] TMP_Text turnText;
 
@@ -78,14 +86,22 @@ public class UIManager : MonoBehaviour
         return amount.ToString();
     }
 
-    public void updateTurnUI(uint turn)
+    public void updateTurnUI(int turn)
     {
         turnText.text = turn + "/50";
+
+        int turnsLeft = GameManager.Instance.turnsPerEvent - turn % GameManager.Instance.turnsPerEvent;
+        turnsLeftText.text = (turnsLeft == 0 ? GameManager.Instance.turnsPerEvent + 1 : turnsLeft) + " Turnos";
     }
 
-    public void updateCatastropheText(string text)
+    public void updateCatastropheText(string text, string description)
     {
         catastropheText.text = text;
+        catastropheCenterText.text = text;
+
+        catastropheDescriptionText.text = description;
+
+        StartCoroutine(fadeOutCatastrophe());
     }
     
     public void endGameByGolem(bool win)
@@ -118,13 +134,15 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void ShowGolemScreen()
+    public void ShowGolemScreen(int golemPart)
     {
         GolemScreen.SetActive(true);
         ChangeMetalSlider(0);
         ChangeWaterSlider(0);
         ChangeWorkerSlider(0);
         ChangeScienceSlider(0);
+        Debug.Log(golemPart);
+        golemPartImage.sprite = golemParts[golemPart - 1];
     }
 
     public void ChangeMetalSlider(float fillAmount)
@@ -177,5 +195,23 @@ public class UIManager : MonoBehaviour
             yield return new WaitForSeconds(interval);
             character++;
         }
+    }
+
+    private IEnumerator fadeOutCatastrophe()
+    {
+        float time = 1f;
+        catastropheText.color = new Color(1, 1, 1, 1);
+
+        yield return new WaitForSeconds(3f);
+
+        for (float t = time; t >= 0; t -= Time.deltaTime)
+        {
+            catastropheCenterText.color = new Color(1, 1, 1, curve.Evaluate(t / time));
+            catastropheDescriptionText.color = new Color(1, 1, 1, curve.Evaluate(t / time));
+            yield return null;
+        }
+        catastropheCenterText.color = new Color(1, 1, 1, 0);
+        catastropheDescriptionText.color = new Color(1, 1, 1, 0);
+
     }
 }

@@ -65,6 +65,7 @@ public class ResourceManager : MonoBehaviour
 
         Happiness = Mathf.Clamp(Happiness + HappinessPerTurn, 0, 100);
 
+        bool buffEnded = false;
         List<Buff> buffsCopy = new List<Buff>(buffs);
         foreach (Buff buff in buffsCopy)
         {
@@ -72,7 +73,13 @@ public class ResourceManager : MonoBehaviour
             if (buff.turnsLeft <= 0)
             {
                 buffs.Remove(buff);
+                buffEnded = true;
             }
+        }
+
+        if(buffEnded)
+        {
+            TileMap.Instance.UpdateMap();
         }
 
     }

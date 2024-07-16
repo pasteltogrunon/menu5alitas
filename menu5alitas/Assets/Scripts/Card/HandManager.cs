@@ -62,6 +62,7 @@ public class HandManager : MonoBehaviour
 
     [SerializeField] AudioClip cardPickingSound;
     [SerializeField] AudioClip cardDragging;
+    public AudioClip cartaQuemada;
     [SerializeField] AudioClip[] cardAppearingSounds;
     [SerializeField] AudioClip[] hoverSounds;
 
