@@ -137,6 +137,9 @@ public abstract class Card : MonoBehaviour
             mat.SetFloat("_DissolvePhase", t/time);
             yield return null;
         }
+
+        SFXManager.PlaySound(HandManager.Instance.cartaQuemada);
+
         mat.SetFloat("_DissolvePhase", 0);
         DeleteFromHandManager();
         Destroy(gameObject);

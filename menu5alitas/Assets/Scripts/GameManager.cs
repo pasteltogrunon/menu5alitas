@@ -3,18 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public uint turn = 1;
-    public uint turnsPerEvent = 5;
-    public uint turnsPerGolemScreen = 10;
+    public int turn = 1;
+    public int turnsPerEvent = 5;
+    public int turnsPerGolemScreen = 10;
 
-    public uint turnTier2 = 10;
-    public uint turnTier3 = 25;
+    public int turnTier2 = 10;
+    public int turnTier3 = 25;
 
     public float[] ratings = new float[5];
 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] AudioClip newCatastropheSound;
     [SerializeField] AudioClip picketSound;
+    [SerializeField] AudioClip mechaMejoraSound;
     public AudioClip overloadSound;
 
     bool isGameEnded = false;
@@ -83,7 +85,7 @@ public class GameManager : MonoBehaviour
         if (turn % turnsPerGolemScreen == 0)
         {
             handManager.isInGolemScreen = true;
-            uiManager.ShowGolemScreen();
+            uiManager.ShowGolemScreen(turn / turnsPerGolemScreen);
         }
 
         handManager.StealCard();
@@ -105,7 +107,7 @@ public class GameManager : MonoBehaviour
 
         SFXManager.PlaySound(newCatastropheSound);
 
-        UIManager.Instance.updateCatastropheText(nextBuff.HardBuffId.ToString());
+        UIManager.Instance.updateCatastropheText(hardBuffToString(nextBuff.HardBuffId), "Consecuencias: (?)");
 
         if (nextBuff.HardBuffId != HardBuff.None)
             currentCatastrofe = nextBuff.HardBuffId;
@@ -114,7 +116,7 @@ public class GameManager : MonoBehaviour
 
     public float GolemScore(ResourceCounterList spentResources)
     {
-        uint golemPiece = turn / 10 % turnsPerGolemScreen;
+        int golemPiece = turn / 10;
 
         resourceManager.subtractResources(spentResources);
         
@@ -174,6 +176,7 @@ public class GameManager : MonoBehaviour
 
         float rating = 5 * (weight_metal * metal/cost_metal + weight_water * water/cost_water+ weight_workers * workers/cost_workers + weight_science * science/cost_science);
 
+        Debug.Log(golemPiece);
         ratings[golemPiece-1] = rating;
 
         if (golemPiece==5) 
@@ -185,6 +188,8 @@ public class GameManager : MonoBehaviour
             finalRating /= 5;
         }
 
+        SFXManager.PlaySound(mechaMejoraSound);
+
         return MathF.Round(rating, 2);
     }
 
@@ -194,6 +199,7 @@ public class GameManager : MonoBehaviour
         uiManager.endGameByPickets();
 
         SFXManager.PlaySound(picketSound);
+        MusicManager.Instance.defeat();
     }
 
     public void tryEndGameByGolem()
@@ -203,6 +209,14 @@ public class GameManager : MonoBehaviour
         {
             isGameEnded = true;
             uiManager.endGameByGolem(finalRating >= 4.1f);
+            if(finalRating >= 4.1f)
+            {
+                MusicManager.Instance.win();
+            }
+            else
+            {
+                MusicManager.Instance.defeat();
+            }
         }
     }
 
@@ -229,6 +243,36 @@ public class GameManager : MonoBehaviour
             default:
                 return;
         }
+    }
+
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    string hardBuffToString(HardBuff buff)
+    {
+        switch(buff)
+        {
+             
+            case HardBuff.PESIMISM:
+                return "Pesimismo"; 
+            case HardBuff.TAXES_FROM_ABOVE:
+                return "Impuestos de arriba"; 
+            case HardBuff.I_FUCKED_UP:
+                return "La he liado parda"; 
+            case HardBuff.OVERLOAD:
+                return "Sobrecarga"; 
+            case HardBuff.RATS_IN_FOOD:
+                return "Ratas en la comida"; 
+            case HardBuff.BREAD_YES_BUT_NO_WINE:
+                return "Pan si pero no vino";
+            case HardBuff.PANDEMIC_INCOMING:
+                return "Pandemia inminente";
+            default:
+                return "";
+        }
+
     }
 }
 
